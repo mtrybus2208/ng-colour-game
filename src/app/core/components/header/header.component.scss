@@ -1,0 +1,17 @@
+
+@import '~assets/scss/themes/light-theme';
+
+.header {
+  background-color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: getTheme(shadow, base);
+  &-primary {
+    background-color: getTheme(primary);
+  }
+  &-sec {
+    background-color: getTheme(secondary);
+  }
+} 

@@ -1,0 +1,26 @@
+
+$lightTheme: (
+  primary: #b36bc5, 
+  secondary: #fff,
+  borderColor: #ccc,
+  baseFontColor: #484747, 
+  basefontFamily: 'Roboto',
+  grey: (
+    base: #eee,
+    light: #e6e5e5,
+    dark: red,
+  ),  
+  shadow: (
+    base: rgba(0,0,0,0.12) 0px 1px 6px,
+    dark: rgba(0,0,0,0.2) 0px 1px 6px,
+  ),
+);
+
+@function getTheme($firstValue, $secValue:null) { 
+  @if ($secValue) {
+    @return map-get(map-get($lightTheme, $firstValue), $secValue);
+  } @else {
+    @return map-get($lightTheme, $firstValue);
+  }
+}
+ 
