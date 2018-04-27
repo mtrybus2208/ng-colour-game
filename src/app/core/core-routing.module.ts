@@ -2,9 +2,9 @@ import { RouterModule, Routes, PreloadAllModules, PreloadingStrategy, } from '@a
 import { NgModule } from '@angular/core';
 
 const routes: Routes = [
-  { path: 'new-game', loadChildren: './modules/new-game/new-game.module#NewGameModule' },
-  { path: 'dashboard', loadChildren: './modules/dashboard/dashboard.module#DashboardModule' },
-  { path: 'results', loadChildren: './modules/results/results.module#ResultsModule' },
+  { path: 'new-game', loadChildren: './../modules/new-game/new-game.module#NewGameModule' },
+  { path: 'dashboard', loadChildren: './../modules/dashboard/dashboard.module#DashboardModule' },
+  { path: 'results', loadChildren: './../modules/results/results.module#ResultsModule' },
   { path: '**', redirectTo: 'new-game', pathMatch: 'full' },
 ];
 
@@ -15,4 +15,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [],
 })
-export class AppRoutingModule {}
+export class CoreRoutingModule {}
