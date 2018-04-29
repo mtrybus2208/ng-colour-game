@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { environment } from './../../environments/environment';
 import { NgModule } from '@angular/core';
-import { MaterialModule } from './material/material.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
@@ -21,7 +20,6 @@ export const COMPONENTS = [
   imports: [
     CoreRoutingModule,
     CommonModule,
-    MaterialModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({
       name: 'NgRx Colour DevTools',
@@ -32,7 +30,7 @@ export const COMPONENTS = [
   ],
   exports: [
     CoreRoutingModule,
-    ...COMPONENTS
+    ...COMPONENTS,
   ]
 })
 export class CoreModule { }

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material';
 
 import { NewGameRoutingModule } from './new-game-routing.module';
 import { NewGameComponent } from './containers/new-game/new-game.component';
@@ -10,7 +11,8 @@ import { NewGameComponent } from './containers/new-game/new-game.component';
   ],
   imports: [
     CommonModule,
-    NewGameRoutingModule
+    NewGameRoutingModule,
+    MatButtonModule
   ],
   providers: [
   ],
