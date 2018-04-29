@@ -1,2 +1,4 @@
-<h1>NOWA GRAAA</h1>
-<button mat-button>Click me!</button>
+<h1>NOWA GRAAA</h1> 
+<template #alertContainer></template>
+<button mat-button (click)="createComponent('success')">Create success alert</button>
+<button mat-button (click)="createComponent('danger')">Create danger alert</button>
