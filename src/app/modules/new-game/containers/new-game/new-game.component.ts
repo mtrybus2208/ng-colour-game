@@ -1,4 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import * as fromCoreStore from './../../../../core/store';
 
 @Component({
   selector: 'app-new-game',
@@ -8,9 +11,13 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class NewGameComponent implements OnInit {
 
-  constructor() { }
+  constructor(private store: Store<fromCoreStore.RootState>) { }
 
   ngOnInit() {
     console.log('NewGameComponent');
+  }
+
+  startGame() {
+    this.store.dispatch(new fromCoreStore.StartGame());
   }
 }
