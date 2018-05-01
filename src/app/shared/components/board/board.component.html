@@ -1,0 +1,7 @@
+<div
+  class="board"
+  [ngClass]="{'board-padding-md': mdPadding}">
+  <ng-content select="[header]"></ng-content>
+  <ng-content select="[body]"></ng-content>
+  <ng-content></ng-content>
+</div>
