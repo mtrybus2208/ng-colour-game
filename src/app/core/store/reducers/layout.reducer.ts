@@ -1,4 +1,4 @@
-import { LayoutActionTypes, LayoutActions } from './../actions';
+import { LayoutActions, LayoutActionTypes } from './../actions';
 
 export interface LayoutState {
   openedModal: boolean;

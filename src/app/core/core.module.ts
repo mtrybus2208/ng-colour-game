@@ -1,11 +1,23 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { EffectsModule } from '@ngrx/effects';
 import { environment } from './../../environments/environment';
 import { NgModule } from '@angular/core';
-import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreModule } from '@ngrx/store';
+import {
+  StoreRouterConnectingModule,
+  RouterStateSerializer,
+} from '@ngrx/router-store';
 
-import { reducers, metaReducers } from './store';
 import { CoreRoutingModule } from './core-routing.module';
+import {
+  CustomRouterStateSerializer,
+  GameEffects,
+  RouterEffects,
+  metaReducers,
+  reducers
+  } from './store';
 import { HeaderComponent } from './components/header/header.component';
 import { HeaderNavComponent } from './components/header/header-nav/header-nav.component';
 
@@ -18,6 +30,7 @@ export const COMPONENTS = [
     ...COMPONENTS
   ],
   imports: [
+    BrowserAnimationsModule,
     CoreRoutingModule,
     CommonModule,
     StoreModule.forRoot(reducers, { metaReducers }),
@@ -25,8 +38,13 @@ export const COMPONENTS = [
       name: 'NgRx Colour DevTools',
       logOnly: environment.production,
     }),
+    EffectsModule.forRoot([GameEffects, RouterEffects]),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router',
+    }),
   ],
   providers: [
+    { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer}
   ],
   exports: [
     CoreRoutingModule,

@@ -3,6 +3,8 @@ import {
   ActionReducerMap,
   MetaReducer,
 } from '@ngrx/store';
+import { storeFreeze } from 'ngrx-store-freeze';
+import { environment } from './../../../../environments/environment';
 
 import { RootState } from './../../store';
 
@@ -16,3 +18,10 @@ export function logger(reducer: ActionReducer<RootState>): ActionReducer<RootSta
     return reducer(state, action);
   };
 }
+/**
+ * Array of meta-reducers
+ * that will be composed to form the root meta-reducer.
+ */
+export const metaReducers: MetaReducer<RootState>[] = !environment.production
+? [logger, storeFreeze]
+: [];
