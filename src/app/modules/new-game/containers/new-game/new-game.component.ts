@@ -13,11 +13,10 @@ export class NewGameComponent implements OnInit {
 
   constructor(private store: Store<fromCoreStore.RootState>) { }
 
-  ngOnInit() {
-    console.log('NewGameComponent');
-  }
+  ngOnInit() { }
 
   startGame() {
     this.store.dispatch(new fromCoreStore.StartGame());
   }
 }
+

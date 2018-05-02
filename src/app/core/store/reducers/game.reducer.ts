@@ -29,11 +29,7 @@ const initialState: GameState = {
 };
 export function reducer(state: GameState = initialState, action: GameActions): GameState {
   switch (action.type) {
-    case GameActionTypes.ResetResult: {
-      return {
-        ...state,
-      };
-    }
+
     case GameActionTypes.ShuffleColoursSuccess: {
       return {
         ...state,
@@ -41,6 +37,21 @@ export function reducer(state: GameState = initialState, action: GameActions): G
         shuffledColours: action.payload.shuffled,
       };
     }
+
+    case GameActionTypes.ResetResult: {
+      return {
+        ...state,
+        score: 0,
+      };
+    }
+
+    case GameActionTypes.UpdateResult: {
+      return {
+        ...state,
+        score: state.score + 1,
+      };
+    }
+
     default:
       return state;
   }

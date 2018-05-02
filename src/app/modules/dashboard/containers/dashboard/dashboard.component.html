@@ -1,17 +1,17 @@
 <app-container>
   <app-board>
     <app-board-header header>
-      <div>Score: 11</div>
+      <div>Score: {{ score$ | async }}</div>
 
-      <div>Time: {{gameTimer$ | async}}   s</div>
+      <div>Time: {{gameTimer$ | async}}s</div>
     </app-board-header>
 
-    <app-board-body body>
+    <app-board-body body *ngIf="(questionColour$ | async) as question">
       <div [style.padding]="'0 15px'">
         <div
           class="board-colour-item"
-          [style.color]="(questionColour$ | async).colour">
-          {{ (questionColour$ | async).name }}
+          [style.color]="question.colour">
+          {{ question.name }}
         </div>
 
         <div fxLayout='row, wrap' fxLayoutAlign='space-between'>
@@ -21,7 +21,7 @@
             <button
               mat-button
               [style.background-color]="colour.colour"
-              (click)="startGame()">
+              (click)="onAnswer(colour, question)">
               {{ colour.name }}
             </button>
           </div>

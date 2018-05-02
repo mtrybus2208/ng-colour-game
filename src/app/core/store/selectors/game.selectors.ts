@@ -9,3 +9,5 @@ export const getshuffledColours = createSelector(fromGame.getGameState, game => 
 export const getTimer = createSelector(fromGame.getGameState, game => game.timer);
 
 export const getQuestion = createSelector(fromGame.getGameState, game => game.question);
+
+export const getScore = createSelector(fromGame.getGameState, game => game.score);

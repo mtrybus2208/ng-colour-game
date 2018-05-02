@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   destroyTimer$: Subject<boolean> = new Subject<boolean>();
   questionColour$: Observable<ColourItem>;
   shuffledColours$: Observable<ColourItem>;
+  score$: Observable<boolean>;
   gameTimer$: Observable<number>;
 
   constructor(
@@ -29,7 +30,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.store.dispatch(new fromRootStore.StartGame());
     this.shuffledColours$ = this.gameState.select(fromRootStore.getshuffledColours);
     this.questionColour$ = this.gameState.select(fromRootStore.getQuestion);
+    this.score$ = this.gameState.select(fromRootStore.getScore);
     this.startTimer();
+  }
+
+  onAnswer(answer: ColourItem, question: ColourItem): void {
+    this.store.dispatch(
+      new fromRootStore.CompareColours({answer, question})
+    );
   }
 
   startTimer() {
@@ -46,6 +54,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   stopTimer() {
     this.destroyTimers();
+    this.store.dispatch(
+      new fromRootStore.ShowResult()
+    );
   }
 
   destroyTimers() {

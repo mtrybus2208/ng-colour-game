@@ -5,6 +5,11 @@ import { of } from 'rxjs/observable/of';
 
 import { ColourItem } from './../store/reducers/game.reducer';
 
+export interface CompareColours {
+  question: ColourItem;
+  answer: ColourItem;
+  base: ColourItem[];
+}
 @Injectable()
 export class GameService {
 
@@ -32,5 +37,12 @@ export class GameService {
       shuffled
     };
     return result;
+  }
+
+  compareColours(payload: CompareColours): boolean {
+    const result = payload.base.find((element) => {
+      return element.colour === payload.question.colour;
+    });
+    return (result.name === payload.answer.name) ? true : false;
   }
 }
