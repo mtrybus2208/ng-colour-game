@@ -23,5 +23,5 @@ export function logger(reducer: ActionReducer<RootState>): ActionReducer<RootSta
  * that will be composed to form the root meta-reducer.
  */
 export const metaReducers: MetaReducer<RootState>[] = !environment.production
-? [logger, storeFreeze]
+? [storeFreeze]
 : [];

@@ -20,6 +20,7 @@ import {
   } from './store';
 import { HeaderComponent } from './components/header/header.component';
 import { HeaderNavComponent } from './components/header/header-nav/header-nav.component';
+import { GameService } from './services/game.service';
 
 export const COMPONENTS = [
   HeaderComponent,
@@ -44,7 +45,8 @@ export const COMPONENTS = [
     }),
   ],
   providers: [
-    { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer}
+    { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
+    GameService,
   ],
   exports: [
     CoreRoutingModule,

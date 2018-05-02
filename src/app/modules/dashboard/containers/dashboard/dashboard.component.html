@@ -1,21 +1,21 @@
 <app-container>
   <app-board>
-    <app-board-header header="header">
+    <app-board-header header>
       <div>Score: 11</div>
 
       <div>Time: {{gameTimer$ | async}}   s</div>
     </app-board-header>
 
-    <app-board-body body="body">
+    <app-board-body body>
       <div [style.padding]="'0 15px'">
         <div
           class="board-colour-item"
-          [style.color]="customColour">
-          ZIELONY
+          [style.color]="(questionColour$ | async).colour">
+          {{ (questionColour$ | async).name }}
         </div>
 
         <div fxLayout='row, wrap' fxLayoutAlign='space-between'>
-          <div *ngFor="let colour of baseColours$ | async"
+          <div *ngFor="let colour of shuffledColours$ | async"
             class="board-body-item"
             fxFlex="48.3%">
             <button

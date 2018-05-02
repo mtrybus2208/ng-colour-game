@@ -34,6 +34,13 @@ export function reducer(state: GameState = initialState, action: GameActions): G
         ...state,
       };
     }
+    case GameActionTypes.ShuffleColoursSuccess: {
+      return {
+        ...state,
+        question: action.payload.question,
+        shuffledColours: action.payload.shuffled,
+      };
+    }
     default:
       return state;
   }

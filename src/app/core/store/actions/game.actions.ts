@@ -1,5 +1,7 @@
 import { Action } from '@ngrx/store';
 
+import { ColourItem  } from './../reducers/game.reducer';
+
 export enum GameActionTypes {
   StartGame = '[Game] StartGame',
   ChangeQuote = '[Game] Change Quote',
@@ -22,7 +24,18 @@ export class ResetResult implements Action {
   constructor(public payload?: Object) {}
 }
 
+export class ShuffleColours implements Action {
+  readonly type = GameActionTypes.ShuffleColours;
+  constructor(public payload?: Object) {}
+}
+export class ShuffleColoursSuccess implements Action {
+  readonly type = GameActionTypes.ShuffleColoursSuccess;
+  constructor(public payload: {question: ColourItem, shuffled: ColourItem[]}) {}
+}
+
 // action types
 export type GameActions =
   | StartGame
-  | ResetResult;
+  | ResetResult
+  | ShuffleColours
+  | ShuffleColoursSuccess;

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -17,15 +17,18 @@ import * as fromRootStore from './../../../../core/store';
 export class DashboardComponent implements OnInit, OnDestroy {
 
   destroyTimer$: Subject<boolean> = new Subject<boolean>();
-  customColour: string;
-  baseColours$: Observable<ColourItem>;
+  questionColour$: Observable<ColourItem>;
+  shuffledColours$: Observable<ColourItem>;
   gameTimer$: Observable<number>;
 
-  constructor(private gameState: Store<fromRootStore.RootState>, private cd: ChangeDetectorRef) { }
+  constructor(
+    private gameState: Store<fromRootStore.RootState>,
+    private store: Store<fromRootStore.RootState>) { }
 
   ngOnInit() {
-    this.baseColours$ = this.gameState.select(fromRootStore.getBaseColours);
-    this.customColour = 'pink';
+    this.store.dispatch(new fromRootStore.StartGame());
+    this.shuffledColours$ = this.gameState.select(fromRootStore.getshuffledColours);
+    this.questionColour$ = this.gameState.select(fromRootStore.getQuestion);
     this.startTimer();
   }
 
@@ -52,4 +55,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.destroyTimers();
+  }
 }
