@@ -6,6 +6,7 @@ const routes: Routes = [
   { path: 'new-game', loadChildren: './../modules/new-game/new-game.module#NewGameModule' },
   { path: 'dashboard', loadChildren: './../modules/dashboard/dashboard.module#DashboardModule' },
   { path: 'results', loadChildren: './../modules/results/results.module#ResultsModule' },
+  { path: 'best-results', loadChildren: './../modules/best-results/best-results.module#BestResultsModule' },
   { path: '**', redirectTo: 'new-game', pathMatch: 'full' },
 ];
 
