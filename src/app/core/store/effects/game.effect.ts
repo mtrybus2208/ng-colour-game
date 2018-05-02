@@ -25,7 +25,7 @@ export class GameEffects {
   resetResult$ = this.actions$.pipe(
     ofType(GameActionTypes.ResetResult),
     map(() => new RouterActions.Go({
-      path: ['/results'],
+      path: ['/dashboard'],
     })),
     catchError(err => of(err)),
   );

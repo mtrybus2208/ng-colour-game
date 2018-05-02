@@ -15,7 +15,7 @@ export interface GameState {
 
 const initialState: GameState = {
   score: 0,
-  timer: 1155,
+  timer: 10,
   question: {},
   shuffledColours: [],
   base: [

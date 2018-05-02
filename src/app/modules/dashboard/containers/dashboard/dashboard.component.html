@@ -1,1 +1,33 @@
-<h1>_____________GRAMY___________</h1>
+<app-container>
+  <app-board>
+    <app-board-header header="header">
+      <div>Score: 11</div>
+
+      <div>Time: {{gameTimer$ | async}}   s</div>
+    </app-board-header>
+
+    <app-board-body body="body">
+      <div [style.padding]="'0 15px'">
+        <div
+          class="board-colour-item"
+          [style.color]="customColour">
+          ZIELONY
+        </div>
+
+        <div fxLayout='row, wrap' fxLayoutAlign='space-between'>
+          <div *ngFor="let colour of baseColours$ | async"
+            class="board-body-item"
+            fxFlex="48.3%">
+            <button
+              mat-button
+              [style.background-color]="colour.colour"
+              (click)="startGame()">
+              {{ colour.name }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </app-board-body>
+  </app-board>
+</app-container>
