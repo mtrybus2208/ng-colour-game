@@ -16,18 +16,22 @@ export enum GameActionTypes {
   ShowResult = '[Game] ShowResult',
 }
 
+export interface StartGameParams {
+  time: number;
+  difficulty: string;
+}
 export class StartGame implements Action {
   readonly type = GameActionTypes.StartGame;
-  constructor(public payload?: Object) {}
+  constructor(public payload: StartGameParams) {}
 }
 export class ResetResult implements Action {
   readonly type = GameActionTypes.ResetResult;
-  constructor(public payload?: Object) {}
+  constructor(public payload?: StartGameParams) {}
 }
 
 export class ShuffleColours implements Action {
   readonly type = GameActionTypes.ShuffleColours;
-  constructor(public payload?: Object) {}
+  constructor(public payload?: Object<any>) {}
 }
 export class ShuffleColoursSuccess implements Action {
   readonly type = GameActionTypes.ShuffleColoursSuccess;

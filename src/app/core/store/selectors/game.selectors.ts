@@ -11,3 +11,5 @@ export const getTimer = createSelector(fromGame.getGameState, game => game.timer
 export const getQuestion = createSelector(fromGame.getGameState, game => game.question);
 
 export const getScore = createSelector(fromGame.getGameState, game => game.score);
+
+export const getTimeOptions = createSelector(fromGame.getGameState, game => game.timeOptions);

@@ -24,9 +24,12 @@ export class GameEffects {
   @Effect()
   startGame$ = this.actions$.pipe(
     ofType(GameActionTypes.StartGame),
-    exhaustMap(payload => [
+    // tap(({payload}: any) => {console.log(payload)}),
+    exhaustMap(({payload}: any) => [
       new GameActions.ShuffleColours(),
-      new GameActions.ResetResult(),
+      new GameActions.ResetResult({
+        time: payload.time,
+      }),
       new RouterActions.Go({
         path: ['/dashboard'],
       })

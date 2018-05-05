@@ -7,6 +7,7 @@ export interface ColourItem {
 
 export interface GameState {
   score: number;
+  timeOptions: Array<number>;
   timer: number;
   question: ColourItem;
   shuffledColours: ColourItem[];
@@ -15,7 +16,8 @@ export interface GameState {
 
 const initialState: GameState = {
   score: 0,
-  timer: 10,
+  timeOptions: [30, 60, 90],
+  timer: 60,
   question: {},
   shuffledColours: [],
   base: [
@@ -42,6 +44,7 @@ export function reducer(state: GameState = initialState, action: GameActions): G
       return {
         ...state,
         score: 0,
+        timer: action.payload.time,
       };
     }
 

@@ -1,0 +1,29 @@
+<app-board mdPadding="true" [formGroup]="newGameForm"> 
+  <h2>New Game!</h2>
+
+  <app-new-game-info></app-new-game-info>
+  
+  <mat-form-field class="board-item">
+    <mat-select placeholder="Time" formControlName="time">
+      <mat-option 
+        *ngFor="let time of timeOptions" 
+        [value]="time">
+        {{time}}s    
+      </mat-option>
+    </mat-select>
+  </mat-form-field> 
+
+  <mat-form-field class="board-item">
+    <mat-select placeholder="Difficulty" formControlName="difficulty"> 
+      <mat-option 
+        *ngFor="let difficulty of difficultySet"
+        [value]="difficulty">
+        {{difficulty}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field> 
+
+  <div class="board-item">
+    <button mat-raised-button (click)="onStartGame()">PLAY</button>
+  </div> 
+</app-board> 

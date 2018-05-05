@@ -27,7 +27,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private store: Store<fromRootStore.RootState>) { }
 
   ngOnInit() {
-    this.store.dispatch(new fromRootStore.StartGame());
     this.shuffledColours$ = this.gameState.select(fromRootStore.getshuffledColours);
     this.questionColour$ = this.gameState.select(fromRootStore.getQuestion);
     this.score$ = this.gameState.select(fromRootStore.getScore);

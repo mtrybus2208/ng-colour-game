@@ -1,7 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
-import * as fromCoreStore from './../../../../core/store';
+import * as fromRootStore from './../../../../core/store';
 
 @Component({
   selector: 'app-new-game',
@@ -11,12 +12,20 @@ import * as fromCoreStore from './../../../../core/store';
 })
 export class NewGameComponent implements OnInit {
 
-  constructor(private store: Store<fromCoreStore.RootState>) { }
+  timeOptions$: Observable<number[]>;
+  difficultySet: Array<any>;
 
-  ngOnInit() { }
+  constructor(
+    private gameState: Store<fromRootStore.RootState>) {
+      this.difficultySet = ['easy', 'medium', 'hard'];
+    }
 
-  startGame() {
-    this.store.dispatch(new fromCoreStore.StartGame());
+  ngOnInit() {
+    this.timeOptions$ = this.gameState.select(fromRootStore.getTimeOptions);
+  }
+
+  onStartGame(payload: fromRootStore.StartGameParams) {
+    this.gameState.dispatch(new fromRootStore.StartGame(payload));
   }
 }
 

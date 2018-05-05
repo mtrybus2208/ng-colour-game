@@ -1,46 +1,7 @@
-<app-container> 
-  <app-board mdPadding="true">
-    <h2>New Game!</h2>
-    <div class="board-info">
-      <p class="board-text">
-        Celem gry jest wprowadzenie umysłu w stan UPTIME, czyli zwiększonej koncentracji.Doskonały sposób na szybszą naukę.
-      </p>
-      <p class="board-text">
-        Jak grać? Wyświetlony zostanie kolorowy wyraz. Poniżej wyświetlone zostaną nazwy kolorów. Kliknij myszką na nazwę koloru, w jakim napisany jest wyraz.
-      </p>
-    </div> 
-      <mat-form-field class="board-item">
-        <mat-select value="option1" placeholder="Time"> 
-          <mat-option value="option1">30s</mat-option>
-          <mat-option value="option2">60s</mat-option>
-          <mat-option value="option3">90s</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field class="board-item">
-        <mat-select value="option2" placeholder="Difficulty"> 
-          <mat-option value="option1">easy</mat-option>
-          <mat-option value="option2">medium</mat-option>
-          <mat-option value="option3">hard</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <div class="board-item">
-        <button mat-raised-button (click)="startGame()">PLAY</button>
-      </div>
-
-  </app-board>
+<app-container>
+  <app-new-game-form
+    (startGame)="onStartGame($event)"
+    [timeOptions]="timeOptions$ | async"
+    [difficultySet]="difficultySet">
+  </app-new-game-form>
 </app-container>
-
-
-<!-- <app-container> 
-    <app-board mdPadding="true">
-      <app-board-header header>
-        <h2>New Game!</h2>
-        <p class="board-text">
-          Celem gry jest wprowadzenie umysłu w stan UPTIME, czyli zwiększonej koncentracji.Doskonały sposób na szybszą naukę.
-        </p>
-      </app-board-header>
-      <p body>my article body 1</p>
-    </app-board>
-  </app-container> -->
