@@ -7,8 +7,9 @@ export interface ColourItem {
 
 export interface GameState {
   score: number;
-  timeOptions: Array<number>;
+  timeOptions: number[];
   timer: number;
+  difficultySet: string[];
   question: ColourItem;
   shuffledColours: ColourItem[];
   base: ColourItem[];
@@ -18,6 +19,7 @@ const initialState: GameState = {
   score: 0,
   timeOptions: [30, 60, 90],
   timer: 60,
+  difficultySet: ['easy', 'medium', 'hard'],
   question: {},
   shuffledColours: [],
   base: [

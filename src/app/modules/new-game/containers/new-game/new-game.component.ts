@@ -13,15 +13,18 @@ import * as fromRootStore from './../../../../core/store';
 export class NewGameComponent implements OnInit {
 
   timeOptions$: Observable<number[]>;
-  difficultySet: Array<any>;
+  difficultySet$: Observable<string[]>;
 
   constructor(
-    private gameState: Store<fromRootStore.RootState>) {
-      this.difficultySet = ['easy', 'medium', 'hard'];
-    }
+    private gameState: Store<fromRootStore.RootState>) { }
 
   ngOnInit() {
+    this.getGameState();
+  }
+
+  getGameState(): void {
     this.timeOptions$ = this.gameState.select(fromRootStore.getTimeOptions);
+    this.difficultySet$ = this.gameState.select(fromRootStore.difficultySet);
   }
 
   onStartGame(payload: fromRootStore.StartGameParams) {

@@ -13,3 +13,5 @@ export const getQuestion = createSelector(fromGame.getGameState, game => game.qu
 export const getScore = createSelector(fromGame.getGameState, game => game.score);
 
 export const getTimeOptions = createSelector(fromGame.getGameState, game => game.timeOptions);
+
+export const difficultySet = createSelector(fromGame.getGameState, game => game.difficultySet);

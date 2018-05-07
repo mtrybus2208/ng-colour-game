@@ -2,6 +2,6 @@
   <app-new-game-form
     (startGame)="onStartGame($event)"
     [timeOptions]="timeOptions$ | async"
-    [difficultySet]="difficultySet">
+    [difficultySet]="difficultySet$ | async">
   </app-new-game-form>
 </app-container>
