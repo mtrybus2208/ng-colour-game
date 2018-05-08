@@ -5,44 +5,66 @@ import { of } from 'rxjs/observable/of';
 
 import { ColourItem } from './../store/reducers/game.reducer';
 
-export interface CompareColours {
+export interface GameParams {
   question: ColourItem;
+  colourItems: ColourItem[];
+}
+
+export interface AnswerParam extends GameParams {
   answer: ColourItem;
-  base: ColourItem[];
 }
 @Injectable()
 export class GameService {
 
   constructor( ) {}
 
-  shuffleColours(base: ColourItem[]): any {
-    const names = base.map(item => ({name: item.name}))
+  shuffleColours({diffSet, diff, base}): GameParams {
+    const shuffledArr = this.shuffleArray<ColourItem[]>(base);
+    const resultArray =  this.getResultColours(diffSet, diff, shuffledArr);
+    return this.mixColours(resultArray);
+  }
+
+  compareColours(payload: AnswerParam): boolean {
+    const result = payload.colourItems.find((element) => {
+      return element.colour === payload.question.colour;
+    });
+    return (result.name === payload.answer.name) ? true : false;
+  }
+
+  mixColours(resultArray: ColourItem[]): GameParams  {
+    const names = resultArray.map(item => ({name: item.name}))
     .sort(() => (.5 - Math.random()));
 
-    const colors = base.map((item, index) => ({colour: item.colour}))
+    const colors = resultArray.map((item, index) => ({colour: item.colour}))
     .sort(() => (.5 - Math.random()));
 
     const question =  {
-      ...names[Math.floor(Math.random() * base.length)],
-      ...colors[Math.floor(Math.random() * base.length)],
+      ...names[Math.floor(Math.random() * resultArray.length)],
+      ...colors[Math.floor(Math.random() * resultArray.length)],
     };
+
     const shuffled = colors.map((colour, index) => {
       return {
         ...colour,
         name: names[index].name
       };
     });
-    const result = {
+
+    return {
       question,
-      shuffled
+      colourItems: shuffled,
     };
-    return result;
   }
 
-  compareColours(payload: CompareColours): boolean {
-    const result = payload.base.find((element) => {
-      return element.colour === payload.question.colour;
-    });
-    return (result.name === payload.answer.name) ? true : false;
+  getResultColours(diffSet, diff, shuffledArr): ColourItem[] {
+    const diffIndex =  diffSet.findIndex((el) => el === diff) + 1;
+    return shuffledArr.slice(0, diffIndex * 2);
+  }
+
+  shuffleArray<T>(arr): T {
+    return arr
+      .map((a) => [Math.random(), a])
+      .sort((a, b) => a[0] - b[0])
+      .map((a) => a[1]);
   }
 }

@@ -24,12 +24,12 @@ export class GameEffects {
   @Effect()
   startGame$ = this.actions$.pipe(
     ofType(GameActionTypes.StartGame),
-    // tap(({payload}: any) => {console.log(payload)}),
     exhaustMap(({payload}: any) => [
-      new GameActions.ShuffleColours(),
       new GameActions.ResetResult({
         time: payload.time,
+        difficulty: payload.difficulty
       }),
+      new GameActions.ShuffleColours(),
       new RouterActions.Go({
         path: ['/dashboard'],
       })
@@ -40,8 +40,8 @@ export class GameEffects {
   @Effect()
   shuffleColours$ = this.actions$.pipe(
     ofType(GameActionTypes.ShuffleColours),
-    withLatestFrom(this.gameState$.select(fromRootSelectors.getBaseColours)),
-    map(([action, base]) => this.gs.shuffleColours(base)),
+    withLatestFrom(this.gameState$.select(fromRootSelectors.getGameSettings)),
+    map(([action, settings]) => this.gs.shuffleColours(settings)),
     map((shuffled) => new GameActions.ShuffleColoursSuccess(shuffled)),
     catchError(err => of(err)),
   );
@@ -54,7 +54,7 @@ export class GameEffects {
       const compareSet = {
         question: payload.question,
         answer: payload.answer,
-        base,
+        colourItems: base,
       };
       const result = this.gs.compareColours(compareSet);
       return (result === true)

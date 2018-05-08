@@ -15,3 +15,12 @@ export const getScore = createSelector(fromGame.getGameState, game => game.score
 export const getTimeOptions = createSelector(fromGame.getGameState, game => game.timeOptions);
 
 export const difficultySet = createSelector(fromGame.getGameState, game => game.difficultySet);
+
+export const difficulty = createSelector(fromGame.getGameState, game => game.difficulty);
+
+export const getGameSettings = createSelector(
+  difficultySet,
+  difficulty,
+  getBaseColours,
+  (diffSet, diff, base) => ({diffSet, diff, base})
+);

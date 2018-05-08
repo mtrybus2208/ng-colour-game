@@ -10,6 +10,7 @@ export interface GameState {
   timeOptions: number[];
   timer: number;
   difficultySet: string[];
+  difficulty: string;
   question: ColourItem;
   shuffledColours: ColourItem[];
   base: ColourItem[];
@@ -20,6 +21,7 @@ const initialState: GameState = {
   timeOptions: [30, 60, 90],
   timer: 60,
   difficultySet: ['easy', 'medium', 'hard'],
+  difficulty: 'hard',
   question: {},
   shuffledColours: [],
   base: [
@@ -38,7 +40,7 @@ export function reducer(state: GameState = initialState, action: GameActions): G
       return {
         ...state,
         question: action.payload.question,
-        shuffledColours: action.payload.shuffled,
+        shuffledColours: action.payload.colourItems,
       };
     }
 
@@ -47,6 +49,7 @@ export function reducer(state: GameState = initialState, action: GameActions): G
         ...state,
         score: 0,
         timer: action.payload.time,
+        difficulty: action.payload.difficulty,
       };
     }
 

@@ -1,5 +1,7 @@
 <app-container>
-  <app-board>
+  {{difficulty}}
+  {{ limitedShuffledColours$ | async | json }}
+  <app-board (ngSubmit)="false">
     <app-board-header header>
       <div>Score: {{ score$ | async }}</div>
 

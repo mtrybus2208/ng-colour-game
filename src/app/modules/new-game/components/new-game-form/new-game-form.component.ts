@@ -32,7 +32,7 @@ export class NewGameFormComponent implements OnInit {
   createForm() {
     this.newGameForm = this.fb.group({
       time: [this.timeOptions[1], Validators.required],
-      difficulty: [this.difficultySet[0], Validators.required],
+      difficulty: [this.difficultySet[2], Validators.required],
     });
   }
 

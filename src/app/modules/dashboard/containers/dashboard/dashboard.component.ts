@@ -21,16 +21,28 @@ export class DashboardComponent implements OnInit, OnDestroy {
   shuffledColours$: Observable<ColourItem>;
   score$: Observable<boolean>;
   gameTimer$: Observable<number>;
+  difficultySet$: Observable<string[]>;
+  difficulty: string;
+  private ngUnsubscribe: Subject<any>;
 
   constructor(
     private gameState: Store<fromRootStore.RootState>,
     private store: Store<fromRootStore.RootState>) { }
 
   ngOnInit() {
+    this.ngUnsubscribe = new Subject();
+    this.getGameState();
+    this.startTimer();
+  }
+
+  getGameState() {
     this.shuffledColours$ = this.gameState.select(fromRootStore.getshuffledColours);
     this.questionColour$ = this.gameState.select(fromRootStore.getQuestion);
     this.score$ = this.gameState.select(fromRootStore.getScore);
-    this.startTimer();
+    this.difficultySet$ = this.gameState.select(fromRootStore.difficultySet);
+    this.gameState.select(fromRootStore.difficulty)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe((diff) => this.difficulty = diff);
   }
 
   onAnswer(answer: ColourItem, question: ColourItem): void {
@@ -64,6 +76,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
     this.destroyTimers();
   }
 }
