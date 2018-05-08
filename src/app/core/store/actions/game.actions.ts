@@ -13,6 +13,8 @@ export enum GameActionTypes {
   CompareColoursSuccess = '[Game] Compare Success',
   CompareColoursFail = '[Game] Compare Fail',
   UpdateResult = '[Game] Update Result',
+  IncreaseResult = '[Game] Increase Result',
+  DecreaseResult = '[Game] Decrease Result',
   ResetResult = '[Game] Reset Result',
   ShowResult = '[Game] ShowResult',
 }
@@ -54,9 +56,14 @@ export class CompareColoursFail implements Action {
   constructor(public payload?: any) {}
 }
 
-export class UpdateResult implements Action {
-  readonly type = GameActionTypes.UpdateResult;
-  constructor(public payload?: any) {}
+export class IncreaseResult implements Action {
+  readonly type = GameActionTypes.IncreaseResult;
+  constructor() {}
+}
+
+export class DecreaseResult implements Action {
+  readonly type = GameActionTypes.DecreaseResult;
+  constructor() {}
 }
 
 export class ShowResult implements Action {
@@ -73,5 +80,6 @@ export type GameActions =
   | CompareColours
   | CompareColoursSuccess
   | CompareColoursFail
-  | UpdateResult
+  | IncreaseResult
+  | DecreaseResult
   | ShowResult;

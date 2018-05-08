@@ -53,10 +53,17 @@ export function reducer(state: GameState = initialState, action: GameActions): G
       };
     }
 
-    case GameActionTypes.UpdateResult: {
+    case GameActionTypes.IncreaseResult: {
       return {
         ...state,
         score: state.score + 1,
+      };
+    }
+
+    case GameActionTypes.DecreaseResult: {
+      return {
+        ...state,
+        score: state.score === 0 ? state.score : state.score - 1,
       };
     }
 

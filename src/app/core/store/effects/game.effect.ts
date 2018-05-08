@@ -68,8 +68,8 @@ export class GameEffects {
   compareColoursSuccess$ = this.actions$.pipe(
     ofType(GameActionTypes.CompareColoursSuccess),
     flatMap(payload => [
+      new GameActions.IncreaseResult(),
       new GameActions.ShuffleColours(),
-      new GameActions.UpdateResult(),
     ]),
     catchError(err => of(err)),
   );
@@ -78,6 +78,7 @@ export class GameEffects {
   compareColoursFail$ = this.actions$.pipe(
     ofType(GameActionTypes.CompareColoursFail),
     flatMap(payload => [
+      new GameActions.DecreaseResult(),
       new GameActions.ShuffleColours(),
     ]),
     catchError(err => of(err)),
