@@ -18,7 +18,7 @@ export interface GameState {
 
 const initialState: GameState = {
   score: 0,
-  timeOptions: [30, 60, 90],
+  timeOptions: [10, 60, 90],
   timer: 60,
   difficultySet: ['easy', 'medium', 'hard'],
   difficulty: 'hard',

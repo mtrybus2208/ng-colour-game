@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { ResultsRoutingModule } from './results-routing.module';
 import { ResultsComponent } from './containers/results/results.component';
+import { BestResultsComponent } from './containers/best-results/best-results.component';
 
 @NgModule({
   declarations: [
-    ResultsComponent
+    ResultsComponent,
+    BestResultsComponent
   ],
   imports: [
     CommonModule,
