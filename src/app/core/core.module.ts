@@ -9,6 +9,8 @@ import {
   StoreRouterConnectingModule,
   RouterStateSerializer,
 } from '@ngrx/router-store';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { CoreRoutingModule } from './core-routing.module';
 import {
@@ -43,6 +45,8 @@ export const COMPONENTS = [
     StoreRouterConnectingModule.forRoot({
       stateKey: 'router',
     }),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
   ],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},

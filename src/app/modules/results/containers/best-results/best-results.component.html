@@ -1,3 +1,8 @@
 <div class="best-results">
   <p>BEST</p> 
 </div>
+<button mat-raised-button color="warn" (click)="onGetBestResults('easy')">Easy</button>
+<button mat-raised-button color="warn" (click)="onGetBestResults('medium')">Medium</button>
+<button mat-raised-button color="warn" (click)="onGetBestResults('hard')">Hard</button>
+
+{{ items | async | json  }}
