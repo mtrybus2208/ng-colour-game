@@ -24,7 +24,7 @@ export class NewGameComponent implements OnInit {
 
   getGameState(): void {
     this.timeOptions$ = this.gameState.select(fromRootStore.getTimeOptions);
-    this.difficultySet$ = this.gameState.select(fromRootStore.difficultySet); 
+    this.difficultySet$ = this.gameState.select(fromRootStore.difficultySet);
   }
 
   onStartGame(payload: fromRootStore.StartGameParams) {

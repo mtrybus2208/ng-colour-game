@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material';
 import { DashboardComponent } from './containers/dashboard/dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { SharedModule } from './../../shared/shared.module';
+import * as fromDashboardQuards from './quards';
 
 @NgModule({
   declarations: [
@@ -16,8 +17,7 @@ import { SharedModule } from './../../shared/shared.module';
     SharedModule,
     MatButtonModule,
   ],
-  providers: [
-  ],
+  providers: [...fromDashboardQuards.quards],
   exports: [
   ]
 })
