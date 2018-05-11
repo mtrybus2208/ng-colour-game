@@ -5,7 +5,7 @@ import { NewGameComponent } from './containers/new-game/new-game.component';
 
 
 const newGameRoutes: Routes = [
-  { path: '', component: NewGameComponent},
+  { path: '', component: NewGameComponent },
 ];
 
 @NgModule({
