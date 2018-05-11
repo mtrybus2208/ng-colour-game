@@ -1,11 +1,21 @@
-<div class="best-results">
-  <p>BEST</p> 
-</div>
-<button mat-raised-button color="warn" (click)="onGetBestResults('easy')">Easy</button>
-<button mat-raised-button color="warn" (click)="onGetBestResults('medium')">Medium</button>
-<button mat-raised-button color="warn" (click)="onGetBestResults('hard')">Hard</button>
+<app-container>
 
-<a mat-raised-button color="warn" [routerLink]="['/dashboard']">DDDD</a>
+  <app-board (ngSubmit)="false" *ngIf="result != null;else loader">
+      <mat-tab-group class="best-results-tab">
+        <mat-tab
+          *ngFor="let res of result"
+          label={{res.id}}>
+          <app-board-body body>        
+            <p *ngFor="let item of res.data">
+              {{item.name}} : {{item.score}} pkt
+            </p>
+          </app-board-body>
+        </mat-tab> 
+      </mat-tab-group>
+  </app-board>
 
- 
- 
+  <ng-template #loader>LOADING...</ng-template>
+
+
+
+</app-container>

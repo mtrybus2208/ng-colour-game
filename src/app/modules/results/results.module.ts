@@ -1,6 +1,8 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
+import { SharedModule } from './../../shared/shared.module';
+
 
 import { ResultsRoutingModule } from './results-routing.module';
 import { ResultsComponent } from './containers/results/results.component';
@@ -13,9 +15,10 @@ import { ResultsGuard } from './quards/result.quard';
     BestResultsComponent
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     ResultsRoutingModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTabsModule
   ],
   providers: [ResultsGuard],
   exports: [

@@ -20,6 +20,10 @@
 
 // styles for ng-content 
 :host ::ng-deep {
+  .mat-tab-label {
+    width: 100%;
+    text-transform: uppercase;
+  }
   .board-text {
     text-align: center;
     color: getTheme(baseFontColor);
