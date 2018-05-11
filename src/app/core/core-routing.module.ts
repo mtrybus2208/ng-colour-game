@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, PreloadAllModules, PreloadingStrategy, } from '@angular/router';
-import {DashboarddGuard} from './../modules/dashboard/quards/dashboard.quard';
- 
+import { DashboarddGuard } from './../modules/dashboard/quards/dashboard.quard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'new-game', pathMatch: 'full' },

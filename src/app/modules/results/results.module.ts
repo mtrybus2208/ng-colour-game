@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ResultsRoutingModule } from './results-routing.module';
 import { ResultsComponent } from './containers/results/results.component';
 import { BestResultsComponent } from './containers/best-results/best-results.component';
+import { ResultsGuard } from './quards/result.quard';
 
 @NgModule({
   declarations: [
@@ -16,8 +17,7 @@ import { BestResultsComponent } from './containers/best-results/best-results.com
     ResultsRoutingModule,
     MatButtonModule
   ],
-  providers: [
-  ],
+  providers: [ResultsGuard],
   exports: [
   ]
 })

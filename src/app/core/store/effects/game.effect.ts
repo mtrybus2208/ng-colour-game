@@ -88,7 +88,7 @@ export class GameEffects {
   showResult$ = this.actions$.pipe(
     ofType(GameActionTypes.ShowResult),
     map(() => new RouterActions.Go({
-      path: ['/results'],
+      path: ['/results/current'],
     })),
     catchError(err => of(err)),
   );
