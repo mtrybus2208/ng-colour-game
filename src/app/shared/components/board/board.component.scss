@@ -24,6 +24,13 @@
     width: 100%;
     text-transform: uppercase;
   }
+  .best-results-tab {
+    .mat-ink-bar {
+      background-color: getTheme(primary);
+      width: 33.333%!important;
+     }
+  }
+ 
   .board-text {
     text-align: center;
     color: getTheme(baseFontColor);

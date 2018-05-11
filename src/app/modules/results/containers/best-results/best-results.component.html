@@ -5,11 +5,22 @@
         <mat-tab
           *ngFor="let res of result"
           label={{res.id}}>
-          <app-board-body body>        
-            <p *ngFor="let item of res.data">
-              {{item.name}} : {{item.score}} pkt
-            </p>
-          </app-board-body>
+          <div class="best-results-content">
+            <div class="best-results-body" >
+ 
+              <mat-tab-group class="best-results-tab">
+                  <mat-tab  *ngFor="let item of res.data" label={{mapTime(item.time)}}  >
+                      <div class="best-results-scores">
+                          <div *ngFor="let result of item.results; let i=index" class="result">
+                            <!-- <span class="result-item result-number">{{i + 1}}</span> -->
+                            <span class="result-item result-name">{{i + 1}}. {{result.name}}</span>
+                            <span class="result-item result-score">{{result.score}} pkt</span> 
+                          </div>
+                      </div>
+                  </mat-tab> 
+                </mat-tab-group>
+            </div>
+          </div>
         </mat-tab> 
       </mat-tab-group>
   </app-board>

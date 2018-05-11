@@ -1,1 +1,31 @@
+ .best-results-time {
+  background-color: #f9f5f2;
+  padding: 20px 15px;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px;
+  overflow: hidden;
+    .time-content {  
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+ }
+ .best-results-content {
+  color: rgba(0,0,0,.7);
+ }
+ .result {
+  display: flex;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px;
+  margin: 20px;
+  justify-content: space-between;
+   .result-item {
+    padding: 10px 15px;
+   }
+   .result-score {
+    border-left: 1px solid #e6dfdc;
+    background: #f9f5f2; 
+    min-width: 60px;
+    text-align: center;
+   }
+ }
  
