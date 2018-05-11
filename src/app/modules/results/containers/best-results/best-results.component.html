@@ -5,5 +5,7 @@
 <button mat-raised-button color="warn" (click)="onGetBestResults('medium')">Medium</button>
 <button mat-raised-button color="warn" (click)="onGetBestResults('hard')">Hard</button>
 
+<a mat-raised-button color="warn" [routerLink]="['/dashboard']">DDDD</a>
+
 {{ items | async | json  }}
  

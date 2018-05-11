@@ -23,11 +23,14 @@ import {
 import { HeaderComponent } from './components/header/header.component';
 import { HeaderNavComponent } from './components/header/header-nav/header-nav.component';
 import { GameService } from './services/game.service';
+import { DashboarddGuard } from './../modules/dashboard/quards/dashboard.quard';
+
 
 export const COMPONENTS = [
   HeaderComponent,
   HeaderNavComponent,
 ];
+
 @NgModule({
   declarations: [
     ...COMPONENTS
@@ -51,6 +54,7 @@ export const COMPONENTS = [
   providers: [
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
     GameService,
+    DashboarddGuard,
   ],
   exports: [
     CoreRoutingModule,
