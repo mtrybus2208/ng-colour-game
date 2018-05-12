@@ -1,0 +1,17 @@
+@import '~assets/scss/themes/light-theme';
+
+.result {
+  display: flex;
+  box-shadow: getTheme(shadow, base); 
+  margin: 20px;
+  justify-content: space-between;
+   .result-item {
+    padding: 10px 15px;
+   }
+   .result-score {
+    border-left: 1px solid getTheme(grey, dark);
+    background: getTheme(grey, cloud); 
+    min-width: 60px;
+    text-align: center;
+   }
+ }

@@ -5,8 +5,13 @@ $lightTheme: (
   borderColor: #ccc,
   baseFontColor: #484747, 
   basefontFamily: 'Roboto',
+  black: (
+    base: #000,
+    light: rgba(0,0,0,.7),
+  ),
   grey: (
     base: #eee,
+    cloud: #f9f5f2,
     light: #e6e5e5,
     dark: #f0e5e5,
   ),  
@@ -23,4 +28,5 @@ $lightTheme: (
     @return map-get($lightTheme, $firstValue);
   }
 }
+ 
  

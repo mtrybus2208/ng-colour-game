@@ -31,29 +31,12 @@ export class BestResultsComponent implements OnInit {
             results: data[time]
           }));
         const id = a.payload.doc.id;
-        console.log({ id, data: dataArr });
         return { id, data: dataArr };
       })),
     )
     .subscribe(
       items => this.result = [...items]
     );
-  }
-
-  mapTime(time) {
-    switch (time) {
-      case 'short': {
-        return '30s';
-      }
-      case 'medium': {
-        return '60s';
-      }
-      case 'long': {
-        return '90s';
-      }
-      default:
-        return '90s';
-    }
   }
 
   ngOnInit() {
