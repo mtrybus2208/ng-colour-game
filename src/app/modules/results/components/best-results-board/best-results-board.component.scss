@@ -5,11 +5,6 @@
  }
  
 //  Tab menu overwrite styles
- mat-tab-group.nested-tab ::ng-deep {
-  .mat-tab-header {
-    background: getTheme(grey, cloud);
-  }
-}
  mat-tab-group.primary-tab ::ng-deep {
   .mat-tab-label {
     width: 100%;
@@ -19,6 +14,14 @@
     background-color: getTheme(primary);
     width: 33.333%!important;
    }
+}
+mat-tab-group.nested-tab ::ng-deep {
+  .mat-tab-header {
+    background: getTheme(grey, cloud);
+  }
+  .mat-tab-label { 
+    text-transform: lowercase;
+  }
 }
  
  

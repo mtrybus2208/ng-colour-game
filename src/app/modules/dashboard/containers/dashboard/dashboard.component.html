@@ -1,5 +1,5 @@
 <app-container>
-  <app-board (ngSubmit)="false">
+  <app-board >
     <app-board-header header>
       <div>Score: {{ score$ | async }}</div>
 
@@ -29,5 +29,11 @@
       </div>
 
     </app-board-body>
+    <div class="board-footer">
+      <button mat-button (click)="onFinishGame()">
+        <i class="material-icons" style="margin-top: -2px;">highlight_off</i>
+        Finish
+      </button>
+    </div>
   </app-board>
 </app-container>

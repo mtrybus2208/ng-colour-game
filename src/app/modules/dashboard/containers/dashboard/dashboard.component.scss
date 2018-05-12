@@ -1,0 +1,13 @@
+.board-footer {
+  .mat-button { 
+    width: 100%;
+    padding: 5px;
+    color: #f44336;
+    border-radius: 0;
+    border-top: 1px solid #DFD8D9;
+    text-transform: uppercase;
+  }
+  .mat-button ::ng-deep .mat-button-focus-overlay {
+    background-color:transparent; 
+  }
+}
