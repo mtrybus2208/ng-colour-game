@@ -1,7 +1,8 @@
-<app-board (ngSubmit)="false" class="best-results-board">
+<app-board (ngSubmit)="false" class="best-results-board"> 
+ 
   <mat-tab-group class="best-results-tab primary-tab">
     <mat-tab
-      *ngFor="let res of result"
+      *ngFor="let res of result.bestResults"
       label={{res.id}}>
       <div class="best-results-content">
         <div class="best-results-body" >

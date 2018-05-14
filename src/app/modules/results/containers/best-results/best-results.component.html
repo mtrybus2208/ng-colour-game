@@ -1,10 +1,9 @@
-<app-container>
-
+<app-container> 
   <app-best-results-board
-    *ngIf="result != null;else loader"
-    [result]=result>
+    *ngIf="!(result$ | async)?.loading; else loader"
+    [result]="(result$ | async)">
   </app-best-results-board>
-
+ 
   <ng-template #loader>LOADING...</ng-template>
 
-</app-container>
+</app-container> 

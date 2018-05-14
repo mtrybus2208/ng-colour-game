@@ -27,7 +27,7 @@ import { reducers, effects } from './store';
     ResultsRoutingModule,
     MatButtonModule,
     MatTabsModule,
-    StoreModule.forFeature('results', reducers),
+    StoreModule.forFeature('results', reducers.results),
     EffectsModule.forFeature(effects),
   ],
   providers: [ResultsGuard, ResultsService],

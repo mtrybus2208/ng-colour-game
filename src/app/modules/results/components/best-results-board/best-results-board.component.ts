@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { ResultsState } from './../../store/reducers';
+
 @Component({
   selector: 'app-best-results-board',
   templateUrl: './best-results-board.component.html',
@@ -7,13 +9,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class BestResultsBoardComponent implements OnInit {
 
-  @Input() result: any;
+  @Input() result: ResultsState;
 
   constructor() { }
 
   ngOnInit() {
   }
-  
+
   // !!!!
   mapTime(time) {
     switch (time) {

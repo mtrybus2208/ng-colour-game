@@ -22,6 +22,17 @@ export class ResultsEffects {
   ) {}
 
   @Effect()
+  getResults$ = this.actions$.pipe(
+    ofType(ResultsActionTypes.GetResults),
+    exhaustMap( (action) => {
+      return this.resService
+        .getAllResults()
+        .pipe(
+          map(results => new resultsActions.GetResultsSuccess(results)),
+          catchError(error => of(new resultsActions.GetResultsFail(error)))
+        );
+    })
+  );
   compareResults$ = this.actions$.pipe(
     ofType(ResultsActionTypes.CompareResults),
     exhaustMap( (action) => {
