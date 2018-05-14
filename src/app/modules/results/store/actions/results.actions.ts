@@ -11,7 +11,7 @@ export enum ResultsActionTypes {
 // Compare Actions
 export class CompareResults implements Action {
   readonly type = ResultsActionTypes.CompareResults;
-  constructor() {}
+  constructor(public payload?: any) {}
 }
 export class CompareResultsSuccess implements Action {
   readonly type = ResultsActionTypes.CompareResultsSuccess;

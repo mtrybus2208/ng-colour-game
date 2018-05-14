@@ -9,6 +9,7 @@ import { ResultsRoutingModule } from './results-routing.module';
 import { ResultsComponent } from './containers/results/results.component';
 import { BestResultsComponent } from './containers/best-results/best-results.component';
 import { ResultsGuard } from './quards/result.quard';
+import { BestResultsExistGuard } from './quards/best-results-exist.quard';
 import { BestResultsBoardComponent } from './components/best-results-board/best-results-board.component';
 import { ResultItemComponent } from './components/result-item/result-item.component';
 import { ResultsService } from './services/results.service';
@@ -30,7 +31,7 @@ import { reducers, effects } from './store';
     StoreModule.forFeature('results', reducers.results),
     EffectsModule.forFeature(effects),
   ],
-  providers: [ResultsGuard, ResultsService],
+  providers: [ResultsGuard, BestResultsExistGuard, ResultsService],
   exports: [
   ]
 })

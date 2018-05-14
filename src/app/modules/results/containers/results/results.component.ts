@@ -15,6 +15,7 @@ export class ResultsComponent implements OnInit {
 
   score$: Observable<boolean>;
   difficulty$: Observable<boolean>;
+  timer$: Observable<number>;
 
   constructor(
     private gameState: Store<fromRootStore.RootState>,
@@ -29,9 +30,10 @@ export class ResultsComponent implements OnInit {
   getGameState() {
     this.score$ = this.gameState.select(fromRootStore.getScore);
     this.difficulty$ = this.gameState.select(fromRootStore.difficulty);
+    this.timer$ = this.gameState.select(fromRootStore.getTimer);
   }
 
   compareResults() {
-   this.resultsState.dispatch(new fromResultsStore.CompareResults());
+   this.resultsState.dispatch(new fromResultsStore.CompareResults())
   }
 }

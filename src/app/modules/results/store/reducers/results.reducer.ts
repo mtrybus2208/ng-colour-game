@@ -2,16 +2,16 @@ import { ResultsActionTypes, ResultsActions } from './../actions';
 
 export interface ResultsState {
   bestResults: Array<any>;
-  comparedResults: any;
   loaded: boolean;
   loading: boolean;
+  isTopScore: boolean;
 }
 
 const initialState: ResultsState = {
   bestResults: null,
-  comparedResults: '1000',
   loaded: false,
   loading: false,
+  isTopScore: false,
 };
 export function reducer(state: ResultsState = initialState, action: ResultsActions): ResultsState {
   switch (action.type) {

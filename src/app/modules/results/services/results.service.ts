@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
@@ -36,6 +37,12 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
       const id = a.payload.doc.id;
       return { id, data: dataArr };
     });
+  }
+
+  compareResults(result: any) {
+    console.log(`[DEB]`);
+    console.log(result);
+    return 'sdffsd';
   }
 
 }

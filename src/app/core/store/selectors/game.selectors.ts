@@ -24,3 +24,14 @@ export const getGameSettings = createSelector(
   getBaseColours,
   (diffSet, diff, base) => ({diffSet, diff, base})
 );
+
+export const getScoreParams = createSelector(
+  getScore,
+  difficulty,
+  getTimer,
+  (score, diff, time) => ({
+    score,
+    diff,
+    time
+  })
+);
