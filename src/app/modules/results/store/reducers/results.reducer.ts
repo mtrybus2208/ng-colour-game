@@ -4,7 +4,7 @@ export interface ResultsState {
   bestResults: Array<any>;
   loaded: boolean;
   loading: boolean;
-  isTopScore: boolean;
+  isTopScore: any;
 }
 
 const initialState: ResultsState = {
@@ -38,6 +38,7 @@ export function reducer(state: ResultsState = initialState, action: ResultsActio
     case ResultsActionTypes.CompareResultsSuccess: {
       return {
         ...state,
+        isTopScore: action.payload
       };
     }
 

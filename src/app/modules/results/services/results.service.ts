@@ -33,16 +33,43 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
         .map(time => ({
           time,
           results: data[time]
+            .sort((prev, next) => next.score - prev.score)
+            .slice(0, 5)
         }));
       const id = a.payload.doc.id;
       return { id, data: dataArr };
     });
   }
 
-  compareResults(result: any) {
-    console.log(`[DEB]`);
-    console.log(result);
-    return 'sdffsd';
+  compareResults(result: {payload: any, userScore: any}) {
+
+    const userTime = this.mapTimeToNames(result.userScore.time);
+    const userLevel = result.payload
+      .filter(item => item.id === result.userScore.diff)[0]['data']
+      .filter(item => item.time === userTime)[0]['results']
+      .filter(item => item.score > result.userScore.score);
+
+    return userLevel.length <= result.payload.length
+      ? of(true)
+      : of(false);
+      // After comparision, if result is true, just remove one item from current collection, and insert
+      // new item, order is not important
+  }
+
+  mapTimeToNames(time: number) {
+    switch (time) {
+      case 10 : {
+        return 'short';
+      }
+      case 60: {
+        return 'medium';
+      }
+      case 90: {
+        return 'long';
+      }
+      default:
+        return 'long';
+    }
   }
 
 }

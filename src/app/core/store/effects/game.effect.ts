@@ -45,7 +45,7 @@ export class GameEffects {
     map((shuffled) => new GameActions.ShuffleColoursSuccess(shuffled)),
     catchError(err => of(err)),
   );
-
+ 
   @Effect()
   compareColours$ = this.actions$.pipe(
     ofType(GameActionTypes.CompareColours),

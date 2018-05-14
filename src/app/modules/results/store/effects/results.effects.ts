@@ -1,7 +1,8 @@
+import { CompareColoursSuccess } from './../../../../core/store/actions/game.actions';
 import { Injectable } from '@angular/core';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { of } from 'rxjs/observable/of';
-import { tap, map, exhaustMap, catchError, flatMap, withLatestFrom, switchMap, combineLatest, startWith } from 'rxjs/operators';
+import { first, merge, tap, map, exhaustMap, catchError, withLatestFrom, switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { RootState } from './../../../../core/store';
@@ -18,8 +19,8 @@ export class ResultsEffects {
 
   constructor(
     private actions$: Actions,
-    private gameState$: Store<RootState>,
-    private resultsState$: Store<ResultsState>,
+    private gameState: Store<RootState>,
+    private resultsState: Store<ResultsState>,
     private resService: ResultsService,
   ) {}
 
@@ -27,17 +28,33 @@ export class ResultsEffects {
   @Effect()
   compareResults$ = this.actions$.pipe(
     ofType(ResultsActionTypes.CompareResults),
-    exhaustMap(() => {
+    withLatestFrom(
+      this.resultsState.select(fromResultsSelectors.getBestResultsArray),
+      this.gameState.select(fromGameSelectors.getScoreParams),
+    ),
+    switchMap(([payload, resultsArr, userResults]) => {
+      if (resultsArr) {
+        return this.resService.compareResults({payload: resultsArr, userScore: userResults})
+        .pipe(
+          map(result => new resultsActions.CompareResultsSuccess(result)),
+        );
+      }
       return of(new resultsActions.GetResults())
       .pipe(
-        map((res, lol) => {
-          return this.resService.compareResults({res, lol});
-        })
+        merge(
+          this.actions$.pipe(
+            ofType(ResultsActionTypes.GetResultsSuccess),
+            first(),
+            switchMap((res: any) => {
+              return this.resService.compareResults({payload: res.payload, userScore: userResults})
+              .pipe(
+                map(result => new resultsActions.CompareResultsSuccess(result)),
+              );
+            }),
+          )
+        )
       );
     }),
- 
-    tap(x => console.log(x)),
-    map(x => new resultsActions.CompareResultsSuccess())
   );
 
   @Effect()
