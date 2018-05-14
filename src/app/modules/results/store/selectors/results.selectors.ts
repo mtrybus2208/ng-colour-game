@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 
-import * as fromResults from './../reducers'; 
+import * as fromResults from './../reducers';
 
 export const getFullBestResults = createSelector(fromResults.getResultsState, results => results);
 

@@ -6,6 +6,8 @@ import { ContainerComponent } from './components/container/container.component';
 import { BoardComponent } from './components/board/board.component';
 import { BoardHeaderComponent } from './components/board/board-header/board-header.component';
 import { BoardBodyComponent } from './components/board/board-body/board-body.component';
+import { MapGameTimeToSecPipe } from './pipes/mapGameTimeToSec.pipe';
+
 
 export const COMPONENTS = [
   ContainerComponent,
@@ -14,9 +16,14 @@ export const COMPONENTS = [
   BoardBodyComponent,
 ];
 
+export const PIPES = [
+  MapGameTimeToSecPipe
+];
+
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
+    ...PIPES,
   ],
   imports: [
     CommonModule,
@@ -26,7 +33,8 @@ export const COMPONENTS = [
   exports: [
     CommonModule,
     FlexLayoutModule,
-    ...COMPONENTS
+    ...COMPONENTS,
+    ...PIPES,
   ]
 })
 export class SharedModule { }

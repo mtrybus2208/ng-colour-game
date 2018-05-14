@@ -18,7 +18,6 @@ export function reducer(state: ResultsState = initialState, action: ResultsActio
     case ResultsActionTypes.GetResults: {
       return {
         ...state,
-        loading: true,
       };
     }
     case ResultsActionTypes.GetResultsSuccess: {

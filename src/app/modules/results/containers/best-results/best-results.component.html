@@ -1,6 +1,6 @@
 <app-container> 
   <app-best-results-board
-    *ngIf="!(result$ | async)?.loading; else loader"
+    *ngIf="(result$ | async).loaded; else loader"
     [result]="(result$ | async)">
   </app-best-results-board>
  
