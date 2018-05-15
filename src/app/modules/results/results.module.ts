@@ -4,6 +4,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { SharedModule } from './../../shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { MatInputModule } from '@angular/material/input';
+
 
 import { ResultsRoutingModule } from './results-routing.module';
 import { ResultsComponent } from './containers/results/results.component';
@@ -28,6 +30,7 @@ import { reducers, effects } from './store';
     ResultsRoutingModule,
     MatButtonModule,
     MatTabsModule,
+    MatInputModule,
     StoreModule.forFeature('results', reducers.results),
     EffectsModule.forFeature(effects),
   ],

@@ -16,6 +16,7 @@ export class ResultsComponent implements OnInit {
   score$: Observable<boolean>;
   difficulty$: Observable<boolean>;
   timer$: Observable<number>;
+  isTopScore$: Observable<boolean>;
 
   constructor(
     private gameState: Store<fromRootStore.RootState>,
@@ -28,12 +29,18 @@ export class ResultsComponent implements OnInit {
   }
 
   getGameState() {
+    // Crate specific selector for that
     this.score$ = this.gameState.select(fromRootStore.getScore);
     this.difficulty$ = this.gameState.select(fromRootStore.difficulty);
     this.timer$ = this.gameState.select(fromRootStore.getTimer);
+    this.isTopScore$ = this.gameState.select(fromResultsStore.getIsTopScore);
   }
 
   compareResults() {
-   this.resultsState.dispatch(new fromResultsStore.CompareResults())
+   this.resultsState.dispatch(new fromResultsStore.CompareResults());
+  }
+
+  onSendResult() {
+    console.log(`ide`)
   }
 }

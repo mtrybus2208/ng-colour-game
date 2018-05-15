@@ -10,4 +10,6 @@ export const getResultsLoaded = createSelector(fromResults.getResultsState, resu
 
 export const getResultsLoading = createSelector(fromResults.getResultsState, results => results.loading);
 
+export const getIsTopScore = createSelector(fromResults.getResultsState, results => results.isTopScore);
+
 

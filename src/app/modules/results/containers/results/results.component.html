@@ -1,11 +1,34 @@
-<div>
-    <h1>GRATULACJE</h1>
-    <p>TWOJ WYNIK TO:
-      {{ this.score$ | async }} 
-    </p>
-    <p>Poziom trudnosci:
-      {{ this.difficulty$ | async }} 
-      CZAS{{ this.timer$ | async }} 
-    </p>
-</div>
+ 
+<app-container> 
+  <app-board (ngSubmit)="false" class="">
+    <div header style="padding: 20px;">
+        <h2>Results</h2>
+        <p>TYour score: {{ this.score$ | async }} 
+        </p>
+        <p>difficulty level: {{ this.difficulty$ | async }} 
+        </p>
+        <p>Time: {{ this.timer$ | async }}   </p>
+    </div> 
+  </app-board>
+
+  <app-board (ngSubmit)="false" class="" *ngIf="isTopScore$ | async">
+    <div header style="padding: 20px;">
+        <h2>Congratulations</h2>
+        <p class="center">Your score is on the best list</p>
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Your nick">
+          </mat-form-field>
+          <button mat-raised-button (click)="onSendResult()">Send Results</button>
+        </form>
+    </div> 
+  </app-board>
+
+      <p *ngIf="(isTopScore$ | async)==null" class="center">Checking best scores</p>
+      <p *ngIf="(isTopScore$ | async)== false" class="center">
+        Your score is not on the best list, try again!
+      </p>
+ 
+</app-container> 
+
  
