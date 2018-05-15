@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { first, flatMap, zip,combineLatest, switchMap, merge,exhaustMap,tap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 
 @Injectable()
@@ -19,16 +20,93 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
   }
 
   getAllResults() {
-    this.itemsCollection = this.afs.collection<any>('best-results');
-    return this.itemsCollection.snapshotChanges()
-      .pipe(
-        map((actions: Array<any>) => this.convertResults(actions)),
-      );
+    // const easyResults = this.afs.collection<any>('best-results/easy/time/long/users');
+    // const irems = easyResults.snapshotChanges().pipe(map(x => x.map(a => a.payload.doc.data())))
+    // irems.subscribe(x => console.log(x));
+
+    // const lol: any = ['easy', 'medium', 'hard'].map(level => {
+    //   this.afs.collection<any>(`best-results/${level}/time/long/users`)
+    //   .snapshotChanges().pipe(map(x => x.map(a => a.payload.doc.data())));
+    // });
+    // lol.subscribe(
+    //   x => console.log(x);
+    // );
+
+    const itemsCollection = this.afs.collection<any>('best-results');
+    const items = itemsCollection
+    .snapshotChanges()
+    .pipe(
+      map(res => res.map(x => x.payload.doc.id)),
+      flatMap(arr => {
+        return arr.map(level => 
+          this.afs.collection<any>(`best-results/${level}/time/long/users`)
+            .snapshotChanges()
+            .pipe(
+              map(x => x.map(a => a.payload.doc.data()))
+            )
+            .subscribe(x => console.log(x));
+      }),
+ 
+
+      // zip(arr => {
+      //   return  [
+      //     this.afs.collection<any>(`best-results/${arr[0]}/time/long/users`)
+      //     .snapshotChanges()
+      //     .pipe(
+      //       map(x => x.map(a => a.payload.doc.data()))
+      //     )
+      //   ];
+      // })
+
+    )
+    .subscribe(x => console.log(x));
+    // const itemsCollection = this.afs.collection<any>('best-results');
+    // console.log('asd')
+    // const items = itemsCollection
+    // .snapshotChanges()
+    // .pipe(
+    //   map()
+    // );
+    // .pipe(
+   
+    //   merge( [
+    //     this.afs.collection('best-results/easy/time').snapshotChanges().pipe(map(actions => actions.map(a => a.payload.doc.data()))),
+        // this.afs.collection('best-results/medium/time').snapshotChanges().pipe(map(actions => actions.map(a => a.payload.doc.data()))),
+        // this.afs.collection('best-results/hard/time').snapshotChanges().pipe(map(actions => actions.map(a => a.payload.doc.data()))),
+      // ]),
+      // map((actions: Array<any>) =>  actions.map(a => a.payload.doc.data() )),
+     
+      // );
+    // this.itemsCollection = this.afs.collection<any>('best-results').pipe();
+    // return this.itemsCollection.snapshotChanges()
+    //   .pipe(
+    //     // map((actions: Array<any>) => this.convertResults(actions)), 
+    //     // map((actions: Array<any>) => actions.map(x => {
+    //     //   x.payload.doc.id
+    //     // })),
+    //     // exhaustMap((titles: any) => {
+    //     //   return titles.map(
+    //     //     x => this.afs.collection<any>('time').snapshotChanges().pipe(
+    //     //       map((x: any) => x.payload.doc.data())
+    //     //     )
+    //     //   );
+    //     // }),
+    //     tap(x => console.log(x))
+    //   );
+    // items.subscribe(
+    //   x => {
+    //     console.log('sendResults');
+    //     console.log(x);
+    //   }
+    // );
+    return of([]);
   }
 
   convertResults(actions: Array<any>) {
     return actions.map(a => {
       const data = a.payload.doc.data();
+ 
+ 
       const dataArr = Object.keys(data)
         .map(time => ({
           time,
@@ -60,10 +138,8 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
     const difficulty = 'hard';
     const time = 'medium';
     const resultCollection = this.afs.collection(`best-results`).doc('medium').collection('time').doc('easy').collection('users');
-    var i;
-    for (i = 0; i < 6; i++) {
-      resultCollection.add({ name: `name_${i}`, score: i });
-    }
+    resultCollection.add({ name: `name`, score: 66 });
+
     const result = resultCollection.snapshotChanges()
       .pipe(
         map(actions => actions.map(a => a.payload.doc.data())),
