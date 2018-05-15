@@ -7,6 +7,9 @@ export enum ResultsActionTypes {
   CompareResults = '[Results] CompareResults',
   CompareResultsSuccess = '[Results] CompareResults Success',
   CompareResultsFail = '[Results] CompareResults Fail',
+  SendResults = '[Results] SendResults',
+  SendResultsSuccess = '[Results] SendResults Success',
+  SendResultsFail = '[Results] SendResults Fail',
 }
 // Compare Actions
 export class CompareResults implements Action {
@@ -36,6 +39,20 @@ export class GetResultsFail implements Action {
   constructor(public payload?: any) {}
 }
 
+// Send Actions
+export class SendResults implements Action {
+  readonly type = ResultsActionTypes.SendResults;
+  constructor(public payload?: any) {}
+}
+export class SendResultsSuccess implements Action {
+  readonly type = ResultsActionTypes.SendResultsSuccess;
+  constructor(public payload?: any) {}
+}
+export class SendResultsFail implements Action {
+  readonly type = ResultsActionTypes.SendResultsFail;
+  constructor(public payload?: any) {}
+}
+
 // action types
 export type ResultsActions =
   | CompareResults
@@ -43,4 +60,7 @@ export type ResultsActions =
   | CompareResultsFail
   | GetResults
   | GetResultsSuccess
-  | GetResultsFail;
+  | GetResultsFail
+  | SendResults
+  | SendResultsSuccess
+  | SendResultsFail;

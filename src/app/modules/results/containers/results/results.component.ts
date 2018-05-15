@@ -41,6 +41,10 @@ export class ResultsComponent implements OnInit {
   }
 
   onSendResult() {
-    console.log(`ide`)
+    const user = {
+      name: 'Jan',
+      score: 5
+    };
+    this.resultsState.dispatch(new fromResultsStore.SendResults(user));
   }
 }

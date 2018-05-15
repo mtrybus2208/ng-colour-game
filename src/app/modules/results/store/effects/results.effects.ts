@@ -69,4 +69,18 @@ export class ResultsEffects {
         );
     })
   );
+
+  @Effect()
+  sendResults$ = this.actions$.pipe(
+    ofType(ResultsActionTypes.SendResults),
+    map((action: any) => action.payload),
+    exhaustMap((payload) => {
+      return this.resService
+        .sendResults(payload)
+        .pipe(
+          map(results => new resultsActions.SendResultsSuccess(results)),
+          catchError(error => of(new resultsActions.SendResultsFail(error)))
+        );
+    })
+  );
 }

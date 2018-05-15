@@ -56,6 +56,27 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
       // new item, order is not important
   }
 
+  sendResults(user: {name: string, score: number}) {
+    const difficulty = 'hard';
+    const time = 'medium';
+    const resultCollection = this.afs.collection(`best-results`).doc('medium').collection('time').doc('easy').collection('users');
+    var i;
+    for (i = 0; i < 6; i++) {
+      resultCollection.add({ name: `name_${i}`, score: i });
+    }
+    const result = resultCollection.snapshotChanges()
+      .pipe(
+        map(actions => actions.map(a => a.payload.doc.data())),
+      )
+      .subscribe(
+        x => {
+          console.log('sendResults');
+          console.log(x);
+        }
+      );
+      return of(true);
+  }
+
   mapTimeToNames(time: number) {
     switch (time) {
       case 10 : {
