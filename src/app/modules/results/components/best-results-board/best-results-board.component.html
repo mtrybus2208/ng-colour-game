@@ -2,27 +2,27 @@
  
   <mat-tab-group class="best-results-tab primary-tab">
     <mat-tab
-      *ngFor="let res of result.bestResults"
-      label={{res.id}}>
+      *ngFor="let level of resultArr"
+      label={{level.level}}>
       <div class="best-results-content">
-        <div class="best-results-body" >
+        <div class="best-results-body">
 
           <mat-tab-group class="best-results-tab nested-tab">
-              <mat-tab  *ngFor="let item of res.data" label= '{{item.time | mapGameTimeToSec}}'>
-                  <div class="best-results-scores">
-                      <app-result-item
-                        *ngFor="let result of item.results; let index=index"
-                        [result]=result
-                        [index]=index>
-                      </app-result-item>
-                  </div>
-              </mat-tab> 
-            </mat-tab-group>
+            <mat-tab  *ngFor="let item of level.data" label= '{{item.time | mapGameTimeToSec}}'>
+                <div class="best-results-scores">
+                    <app-result-item
+                      *ngFor="let result of item.data; let index=index"
+                      [result]=result
+                      [index]=index>
+                    </app-result-item>
+                </div>
+            </mat-tab> 
+          </mat-tab-group>
+
         </div>
       </div>
     </mat-tab> 
   </mat-tab-group>
 </app-board>
-
 
  

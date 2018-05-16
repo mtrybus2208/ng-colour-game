@@ -15,6 +15,7 @@ import * as fromResultsStore from './../../store';
 export class BestResultsComponent implements OnInit {
 
   result$: Observable<ResultsState>;
+  resultArr$: Observable<Array<any>>;
 
   constructor(private resultsState: Store<ResultsState>) { }
 
@@ -29,6 +30,7 @@ export class BestResultsComponent implements OnInit {
 
   getResultsState() {
     this.result$ = this.resultsState.select(fromResultsStore.getResultsState);
+    this.resultArr$ = this.resultsState.select(fromResultsStore.getResultsArray);
   }
 
 }

@@ -12,4 +12,16 @@ export const getResultsLoading = createSelector(fromResults.getResultsState, res
 
 export const getIsTopScore = createSelector(fromResults.getResultsState, results => results.isTopScore);
 
+export const getBestResults = createSelector(fromResults.getResultsState, results => results.bestResults);
+
+export const getResultsArray = createSelector(getBestResults, (resObj) => {
+  return Object.keys(resObj).map(level => ({
+    level,
+    data: Object.keys(resObj[level]).map(time => ({
+      time,
+      data: resObj[level][time]
+    }))
+  }));
+});
+
 

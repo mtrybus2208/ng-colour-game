@@ -64,7 +64,6 @@ export class ResultsEffects {
       return this.resService
         .getAllResults()
         .pipe(
-          tap(x => console.log(x)),
           map(results => new resultsActions.GetResultsSuccess(results)),
           catchError(error => of(new resultsActions.GetResultsFail(error)))
         );

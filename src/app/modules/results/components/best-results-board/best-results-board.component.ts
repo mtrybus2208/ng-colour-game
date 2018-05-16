@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { any } from 'codelyzer/util/function';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 import { ResultsState } from './../../store/reducers';
 
@@ -7,30 +8,15 @@ import { ResultsState } from './../../store/reducers';
   templateUrl: './best-results-board.component.html',
   styleUrls: ['./best-results-board.component.scss']
 })
-export class BestResultsBoardComponent implements OnInit {
-
-  @Input() result: ResultsState;
+export class BestResultsBoardComponent implements OnInit, OnChanges {
+  @Input() resultArr: Array<{level: string, data: Array<any>}>;
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  // !!!!
-  mapTime(time) {
-    switch (time) {
-      case 'short': {
-        return '30s';
-      }
-      case 'medium': {
-        return '60s';
-      }
-      case 'long': {
-        return '90s';
-      }
-      default:
-        return '90s';
-    }
+  ngOnChanges() {
+    console.log(this.resultArr);
   }
 
 }

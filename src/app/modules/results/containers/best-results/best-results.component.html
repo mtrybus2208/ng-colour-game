@@ -1,7 +1,7 @@
 <app-container> 
   <app-best-results-board
     *ngIf="(result$ | async).loaded; else loader"
-    [result]="(result$ | async)">
+    [resultArr]="(resultArr$ | async)">
   </app-best-results-board>
  
   <ng-template #loader>LOADING...</ng-template>

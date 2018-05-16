@@ -1,18 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { concatAll, scan, concat, buffer, mergeAll, mergeMap, first, flatMap, zip,combineLatest,
-  withLatestFrom, switchMap, merge,exhaustMap,tap, map, catchError } from 'rxjs/operators';
+import { tap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 
+export interface User {
+  name: string;
+  score: number;
+}
+
+export interface GameTimes {
+  long: Array<User>;
+  short: Array<User>;
+  medium: Array<User>;
+}
+export interface GameLevels {
+  easy: number;
+  medium: AngularFirestoreCollection<GameTimes>;
+  hard: AngularFirestoreCollection<GameTimes>;
+}
 
 @Injectable()
   export class ResultsService {
 
-  private itemsCollection: any = null;
-  private items: any = null;
+    private easyDocRef: AngularFirestoreDocument<GameLevels>;
+    private mediumDocRef: AngularFirestoreDocument<GameLevels>;
+    private hardDocRef: AngularFirestoreDocument<GameLevels>;
 
   constructor(
     private http: HttpClient,
@@ -20,53 +36,58 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
     const firestore = afs.firestore.settings({timestampsInSnapshots: true});
   }
 
-  getAllResults() {
-    // const easyDoc = this.afs.collection<any>('hard').doc('short');
-    // const tasks = easyDoc.collection<any>('users');
- 
-    // tasks.add({
-    //   name: 'arek', score: 22
-    // });
-
-    const easyUsersColl = this.afs.collection<any>('easy');
-    const easyUsers =  easyUsersColl.snapshotChanges().pipe(
-      map(actions => actions.map(a => {
-        const data = a.payload.doc.data();
-        return { ...data };
-      }))
+  getCurrentLevel(ref: AngularFirestoreDocument<GameLevels>) {
+    const times = ['long', 'short', 'medium'];
+    return combineLatest(
+      times.map(
+        item => ref.collection<any>(item).snapshotChanges().pipe(
+          map(actions => actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          }))
+        )
+      ), (long, short, medium) => {
+        return {long, short, medium};
+      }
     );
-
-    easyUsers.subscribe(x => console.log(x))
- 
-    // function test(time): any {
-    //   const easyCollection = this.afs.collection<any>(`best-results/easy/time/${time}/users`);
-    //   const mediumCollection = this.afs.collection<any>('best-results/medium/time/long/users');
-    //   const hardCollection = this.afs.collection<any>('best-results/hard/time/long/users');
-    //   const res = [easyCollection, mediumCollection, hardCollection].map(x => x.snapshotChanges().pipe(
-    //     map(easy => easy.map(a => a.payload.doc.data())),
-    //   ));
-    //   return res;
-    //  }
-
-    return of([]);
   }
 
-  convertResults(actions: Array<any>) {
-    return actions.map(a => {
-      const data = a.payload.doc.data();
- 
- 
-      const dataArr = Object.keys(data)
-        .map(time => ({
-          time,
-          results: data[time]
-            .sort((prev, next) => next.score - prev.score)
-            .slice(0, 5)
-        }));
-      const id = a.payload.doc.id;
-      return { id, data: dataArr };
+  getAllResults() {
+    this.easyDocRef = this.afs.doc<GameLevels>('results/easy');
+    this.mediumDocRef = this.afs.doc<GameLevels>('results/medium');
+    this.hardDocRef = this.afs.doc<GameLevels>('results/hard');
+
+    const easy = this.getCurrentLevel(this.easyDocRef);
+    const medium = this.getCurrentLevel(this.mediumDocRef);
+    const hard = this.getCurrentLevel(this.hardDocRef);
+
+    const result = combineLatest(easy, medium, hard, (easyLevel, mediumLevel, hardLevel) => {
+      return {
+        easy: easyLevel,
+        medium: mediumLevel,
+        hard: hardLevel,
+      };
     });
+    return result;
   }
+
+  // convertResults(actions: Array<any>) {
+  //   return actions.map(a => {
+  //     const data = a.payload.doc.data();
+ 
+ 
+  //     const dataArr = Object.keys(data)
+  //       .map(time => ({
+  //         time,
+  //         results: data[time]
+  //           .sort((prev, next) => next.score - prev.score)
+  //           .slice(0, 5)
+  //       }));
+  //     const id = a.payload.doc.id;
+  //     return { id, data: dataArr };
+  //   });
+  // }
 
   compareResults(result: {payload: any, userScore: any}) {
 
@@ -84,21 +105,21 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
   }
 
   sendResults(user: {name: string, score: number}) {
-    const difficulty = 'hard';
-    const time = 'medium';
-    const resultCollection = this.afs.collection(`best-results`).doc('medium').collection('time').doc('easy').collection('users');
-    resultCollection.add({ name: `name`, score: 66 });
+    // const difficulty = 'hard';
+    // const time = 'medium';
+    // const resultCollection = this.afs.collection(`best-results`).doc('medium').collection('time').doc('easy').collection('users');
+    // resultCollection.add({ name: `name`, score: 66 });
 
-    const result = resultCollection.snapshotChanges()
-      .pipe(
-        map(actions => actions.map(a => a.payload.doc.data())),
-      )
-      .subscribe(
-        x => {
-          console.log('sendResults');
-          console.log(x);
-        }
-      );
+    // const result = resultCollection.snapshotChanges()
+    //   .pipe(
+    //     map(actions => actions.map(a => a.payload.doc.data())),
+    //   )
+    //   .subscribe(
+    //     x => {
+    //       console.log('sendResults');
+    //       console.log(x);
+    //     }
+    //   );
       return of(true);
   }
 
