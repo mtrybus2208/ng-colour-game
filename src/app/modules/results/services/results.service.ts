@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { first, flatMap, zip,combineLatest, switchMap, merge,exhaustMap,tap, map, catchError } from 'rxjs/operators';
+import { concatAll, scan, concat, buffer, mergeAll, mergeMap, first, flatMap, zip,combineLatest,
+  withLatestFrom, switchMap, merge,exhaustMap,tap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
@@ -20,85 +21,33 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
   }
 
   getAllResults() {
-    // const easyResults = this.afs.collection<any>('best-results/easy/time/long/users');
-    // const irems = easyResults.snapshotChanges().pipe(map(x => x.map(a => a.payload.doc.data())))
-    // irems.subscribe(x => console.log(x));
-
-    // const lol: any = ['easy', 'medium', 'hard'].map(level => {
-    //   this.afs.collection<any>(`best-results/${level}/time/long/users`)
-    //   .snapshotChanges().pipe(map(x => x.map(a => a.payload.doc.data())));
-    // });
-    // lol.subscribe(
-    //   x => console.log(x);
-    // );
-
-    const itemsCollection = this.afs.collection<any>('best-results');
-    const items = itemsCollection
-    .snapshotChanges()
-    .pipe(
-      map(res => res.map(x => x.payload.doc.id)),
-      flatMap(arr => {
-        return arr.map(level => 
-          this.afs.collection<any>(`best-results/${level}/time/long/users`)
-            .snapshotChanges()
-            .pipe(
-              map(x => x.map(a => a.payload.doc.data()))
-            )
-            .subscribe(x => console.log(x));
-      }),
+    // const easyDoc = this.afs.collection<any>('hard').doc('short');
+    // const tasks = easyDoc.collection<any>('users');
  
+    // tasks.add({
+    //   name: 'arek', score: 22
+    // });
 
-      // zip(arr => {
-      //   return  [
-      //     this.afs.collection<any>(`best-results/${arr[0]}/time/long/users`)
-      //     .snapshotChanges()
-      //     .pipe(
-      //       map(x => x.map(a => a.payload.doc.data()))
-      //     )
-      //   ];
-      // })
+    const easyUsersColl = this.afs.collection<any>('easy');
+    const easyUsers =  easyUsersColl.snapshotChanges().pipe(
+      map(actions => actions.map(a => {
+        const data = a.payload.doc.data();
+        return { ...data };
+      }))
+    );
 
-    )
-    .subscribe(x => console.log(x));
-    // const itemsCollection = this.afs.collection<any>('best-results');
-    // console.log('asd')
-    // const items = itemsCollection
-    // .snapshotChanges()
-    // .pipe(
-    //   map()
-    // );
-    // .pipe(
-   
-    //   merge( [
-    //     this.afs.collection('best-results/easy/time').snapshotChanges().pipe(map(actions => actions.map(a => a.payload.doc.data()))),
-        // this.afs.collection('best-results/medium/time').snapshotChanges().pipe(map(actions => actions.map(a => a.payload.doc.data()))),
-        // this.afs.collection('best-results/hard/time').snapshotChanges().pipe(map(actions => actions.map(a => a.payload.doc.data()))),
-      // ]),
-      // map((actions: Array<any>) =>  actions.map(a => a.payload.doc.data() )),
-     
-      // );
-    // this.itemsCollection = this.afs.collection<any>('best-results').pipe();
-    // return this.itemsCollection.snapshotChanges()
-    //   .pipe(
-    //     // map((actions: Array<any>) => this.convertResults(actions)), 
-    //     // map((actions: Array<any>) => actions.map(x => {
-    //     //   x.payload.doc.id
-    //     // })),
-    //     // exhaustMap((titles: any) => {
-    //     //   return titles.map(
-    //     //     x => this.afs.collection<any>('time').snapshotChanges().pipe(
-    //     //       map((x: any) => x.payload.doc.data())
-    //     //     )
-    //     //   );
-    //     // }),
-    //     tap(x => console.log(x))
-    //   );
-    // items.subscribe(
-    //   x => {
-    //     console.log('sendResults');
-    //     console.log(x);
-    //   }
-    // );
+    easyUsers.subscribe(x => console.log(x))
+ 
+    // function test(time): any {
+    //   const easyCollection = this.afs.collection<any>(`best-results/easy/time/${time}/users`);
+    //   const mediumCollection = this.afs.collection<any>('best-results/medium/time/long/users');
+    //   const hardCollection = this.afs.collection<any>('best-results/hard/time/long/users');
+    //   const res = [easyCollection, mediumCollection, hardCollection].map(x => x.snapshotChanges().pipe(
+    //     map(easy => easy.map(a => a.payload.doc.data())),
+    //   ));
+    //   return res;
+    //  }
+
     return of([]);
   }
 
