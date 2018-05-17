@@ -22,33 +22,32 @@ import { User, Times, BestResults} from './../model/results.model';
   }
 
   getCurrentLevel(ref: AngularFirestoreDocument<BestResults>, gameLevel: string): Observable<any> {
-    const times = ['long', 'short', 'medium'];
+    const times = ['short', 'medium', 'long'];
     return combineLatest(
       times.map(
         item => {
-          return ref.collection<Times>(item, refs => {
-            //return refs.where('score', '==', 1);
-            return refs.orderBy('score').limit(5);
+          return ref.collection<User>(`${item}`).doc('users').collection('users', userRef => {
+            return userRef.orderBy('score', 'desc').limit(5);
           }).snapshotChanges().pipe(
             map(actions => actions.map((a): User =>  {
               const data = a.payload.doc.data();
-              console.log(a.payload.doc.data())
+ 
               const id = a.payload.doc.id;
               return { id, name: data.name, score: data.score };
             }))
           );
         }
-      ), (long, short, medium) => {
+      ), (short, medium, long) => {
         return {
           gameLevel,
-          data: {long, short, medium}
+          data: {short, medium, long}
         };
       }
     );
   }
 
   getAllResults(): Observable<BestResults> {
-    this.bestResultsCollection = this.afs.collection<BestResults>('results');
+    this.bestResultsCollection = this.afs.collection<BestResults>('results', ref => ref.orderBy('id'));
 
     this.bestResults = this.bestResultsCollection.snapshotChanges().pipe(
 
