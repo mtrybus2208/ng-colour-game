@@ -31,7 +31,7 @@ import { User, Times, BestResults} from './../model/results.model';
           }).snapshotChanges().pipe(
             map(actions => actions.map((a): User =>  {
               const data = a.payload.doc.data();
- 
+
               const id = a.payload.doc.id;
               return { id, name: data.name, score: data.score };
             }))
@@ -96,16 +96,22 @@ import { User, Times, BestResults} from './../model/results.model';
   // }
 
   compareResults(result: {payload: any, userScore: any}) {
-
+    console.log('[compareResults] - service');
+    console.log(result.payload);
+    console.log(result.userScore);
     const userTime = this.mapTimeToNames(result.userScore.time);
-    const userLevel = result.payload
-      .filter(item => item.id === result.userScore.diff)[0]['data']
-      .filter(item => item.time === userTime)[0]['results']
-      .filter(item => item.score > result.userScore.score);
+    console.log('[compareResults] - service');
+    console.log(userTime);
+    // const userLevel = result.payload
+    //   .filter(item => item.id === result.userScore.diff)[0]['data']
+    //   .filter(item => item.time === userTime)[0]['results']
+    //   .filter(item => item.score > result.userScore.score);
 
-    return userLevel.length <= result.payload.length
-      ? of(true)
-      : of(false);
+    // return userLevel.length <= result.payload.length
+    //   ? of(true)
+    //   : of(false);
+
+    return of(true);
       // After comparision, if result is true, just remove one item from current collection, and insert
       // new item, order is not important
   }
