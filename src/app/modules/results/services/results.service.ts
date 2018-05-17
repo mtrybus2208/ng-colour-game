@@ -1,34 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { tap, map, catchError } from 'rxjs/operators';
+import { mergeMap,switchMap, tap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 
-export interface User {
-  name: string;
-  score: number;
-}
-
-export interface GameTimes {
-  long: Array<User>;
-  short: Array<User>;
-  medium: Array<User>;
-}
-export interface GameLevels {
-  easy: number;
-  medium: AngularFirestoreCollection<GameTimes>;
-  hard: AngularFirestoreCollection<GameTimes>;
-}
+import { User, Times, BestResults} from './../model/results.model';
 
 @Injectable()
   export class ResultsService {
 
-    private easyDocRef: AngularFirestoreDocument<GameLevels>;
-    private mediumDocRef: AngularFirestoreDocument<GameLevels>;
-    private hardDocRef: AngularFirestoreDocument<GameLevels>;
+  private bestResultsCollection: AngularFirestoreCollection<BestResults>;
+  private bestResults: Observable<BestResults>;
 
   constructor(
     private http: HttpClient,
@@ -36,40 +21,62 @@ export interface GameLevels {
     const firestore = afs.firestore.settings({timestampsInSnapshots: true});
   }
 
-  getCurrentLevel(ref: AngularFirestoreDocument<GameLevels>) {
+  getCurrentLevel(ref: AngularFirestoreDocument<BestResults>, gameLevel: string): Observable<any> {
     const times = ['long', 'short', 'medium'];
     return combineLatest(
       times.map(
-        item => ref.collection<any>(item).snapshotChanges().pipe(
-          map(actions => actions.map(a => {
-            const data = a.payload.doc.data();
-            const id = a.payload.doc.id;
-            return { id, ...data };
-          }))
-        )
+        item => {
+          return ref.collection<Times>(item, refs => {
+            //return refs.where('score', '==', 1);
+            return refs.orderBy('score').limit(5);
+          }).snapshotChanges().pipe(
+            map(actions => actions.map((a): User =>  {
+              const data = a.payload.doc.data();
+              console.log(a.payload.doc.data())
+              const id = a.payload.doc.id;
+              return { id, name: data.name, score: data.score };
+            }))
+          );
+        }
       ), (long, short, medium) => {
-        return {long, short, medium};
+        return {
+          gameLevel,
+          data: {long, short, medium}
+        };
       }
     );
   }
 
-  getAllResults() {
-    this.easyDocRef = this.afs.doc<GameLevels>('results/easy');
-    this.mediumDocRef = this.afs.doc<GameLevels>('results/medium');
-    this.hardDocRef = this.afs.doc<GameLevels>('results/hard');
+  getAllResults(): Observable<BestResults> {
+    this.bestResultsCollection = this.afs.collection<BestResults>('results');
 
-    const easy = this.getCurrentLevel(this.easyDocRef);
-    const medium = this.getCurrentLevel(this.mediumDocRef);
-    const hard = this.getCurrentLevel(this.hardDocRef);
+    this.bestResults = this.bestResultsCollection.snapshotChanges().pipe(
 
-    const result = combineLatest(easy, medium, hard, (easyLevel, mediumLevel, hardLevel) => {
-      return {
-        easy: easyLevel,
-        medium: mediumLevel,
-        hard: hardLevel,
-      };
-    });
-    return result;
+      map((actions: any) => actions.map(a => a.payload.doc.id)),
+
+      mergeMap((act) => {
+        return  of({
+          name: act,
+          data: act.map(level => this.afs.doc<BestResults>(`results/${level}`))
+        });
+      }),
+
+      switchMap((resultsDoc) => {
+        return combineLatest(
+          resultsDoc.data.map((level, index) => {
+            return this.getCurrentLevel(level, resultsDoc.name[index]);
+          })
+        );
+      }),
+
+      map((resultArr: Array<any>) => {
+        return resultArr.reduce((obj, item) => {
+          obj[item.gameLevel] = item.data;
+          return obj;
+        }, {});
+      })
+    );
+    return this.bestResults;
   }
 
   // convertResults(actions: Array<any>) {
