@@ -54,7 +54,7 @@ export const COMPONENTS = [
   providers: [
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
     GameService,
-    DashboarddGuard,
+    //DashboarddGuard,
   ],
   exports: [
     CoreRoutingModule,

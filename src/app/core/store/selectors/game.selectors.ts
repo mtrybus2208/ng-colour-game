@@ -29,9 +29,9 @@ export const getScoreParams = createSelector(
   getScore,
   difficulty,
   getTimer,
-  (score, diff, time) => ({
+  (score, level, time) => ({
     score,
-    diff,
+    level,
     time
   })
 );

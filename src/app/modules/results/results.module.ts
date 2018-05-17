@@ -16,6 +16,8 @@ import { BestResultsBoardComponent } from './components/best-results-board/best-
 import { ResultItemComponent } from './components/result-item/result-item.component';
 import { ResultsService } from './services/results.service';
 
+import { MapGameTimeToSecPipe } from './../../shared/pipes/mapGameTimeToSec.pipe';
+
 import { reducers, effects } from './store';
 
 @NgModule({
@@ -34,8 +36,7 @@ import { reducers, effects } from './store';
     StoreModule.forFeature('results', reducers.results),
     EffectsModule.forFeature(effects),
   ],
-  providers: [ResultsGuard, BestResultsExistGuard, ResultsService],
-  exports: [
-  ]
+  providers: [ResultsGuard, BestResultsExistGuard, ResultsService, MapGameTimeToSecPipe],
+  exports: [ ]
 })
 export class ResultsModule { }

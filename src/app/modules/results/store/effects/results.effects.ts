@@ -36,36 +36,25 @@ export class ResultsEffects {
       if (resultsArr) {
         return this.resService.compareResults({payload: resultsArr, userScore: userResults})
         .pipe(
-          tap(x => console.log(x)),
           map(result => new resultsActions.CompareResultsSuccess(result)),
         );
       }
-      return of(new resultsActions.CompareResultsSuccess(true));
+      return of(new resultsActions.GetResults())
+      .pipe(
+        merge(
+          this.actions$.pipe(
+            ofType(ResultsActionTypes.GetResultsSuccess),
+            first(),
+            switchMap((res: any) => {
+              return this.resService.compareResults({payload: res.payload, userScore: userResults})
+              .pipe(
+                map(result => new resultsActions.CompareResultsSuccess(result)),
+              );
+            }),
+          )
+        )
+      );
     }),
-    // switchMap(([payload, resultsArr, userResults]) => {
-    //   if (resultsArr) {
-    //     return this.resService.compareResults({payload: resultsArr, userScore: userResults})
-    //     .pipe(
-    //       tap(x => console.log(x)),
-    //       map(result => new resultsActions.CompareResultsSuccess(result)),
-    //     );
-    //   }
-    //   return of(new resultsActions.GetResults())
-    //   .pipe(
-    //     merge(
-    //       this.actions$.pipe(
-    //         ofType(ResultsActionTypes.GetResultsSuccess),
-    //         first(),
-    //         switchMap((res: any) => {
-    //           return this.resService.compareResults({payload: res.payload, userScore: userResults})
-    //           .pipe(
-    //             map(result => new resultsActions.CompareResultsSuccess(result)),
-    //           );
-    //         }),
-    //       )
-    //     )
-    //   );
-    // }),
   );
 
   @Effect()

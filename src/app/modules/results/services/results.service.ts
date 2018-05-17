@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { mergeMap,switchMap, tap, map, catchError } from 'rxjs/operators';
+import { mergeMap, switchMap, tap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 
-import { User, Times, BestResults} from './../model/results.model';
+import { User, Times, BestResults, UserResults } from './../models/results.model';
+import { MapGameTimeToSecPipe } from './../../../shared/pipes/mapGameTimeToSec.pipe';
 
 @Injectable()
   export class ResultsService {
@@ -16,6 +17,7 @@ import { User, Times, BestResults} from './../model/results.model';
   private bestResults: Observable<BestResults>;
 
   constructor(
+    private timePipe: MapGameTimeToSecPipe,
     private http: HttpClient,
     private afs: AngularFirestore) {
     const firestore = afs.firestore.settings({timestampsInSnapshots: true});
@@ -78,49 +80,22 @@ import { User, Times, BestResults} from './../model/results.model';
     return this.bestResults;
   }
 
-  // convertResults(actions: Array<any>) {
-  //   return actions.map(a => {
-  //     const data = a.payload.doc.data();
- 
- 
-  //     const dataArr = Object.keys(data)
-  //       .map(time => ({
-  //         time,
-  //         results: data[time]
-  //           .sort((prev, next) => next.score - prev.score)
-  //           .slice(0, 5)
-  //       }));
-  //     const id = a.payload.doc.id;
-  //     return { id, data: dataArr };
-  //   });
-  // }
+  compareResults(result: {payload: BestResults, userScore: UserResults}): Observable<boolean> {
+    const time = this.timePipe.transform(result.userScore.time, true);
+    const level = result.userScore.level;
+    const score = result.userScore.score;
 
-  compareResults(result: {payload: any, userScore: any}) {
-    console.log('[compareResults] - service');
-    console.log(result.payload);
-    console.log(result.userScore);
-    const userTime = this.mapTimeToNames(result.userScore.time);
-    console.log('[compareResults] - service');
-    console.log(userTime);
-    // const userLevel = result.payload
-    //   .filter(item => item.id === result.userScore.diff)[0]['data']
-    //   .filter(item => item.time === userTime)[0]['results']
-    //   .filter(item => item.score > result.userScore.score);
-
-    // return userLevel.length <= result.payload.length
-    //   ? of(true)
-    //   : of(false);
-
-    return of(true);
-      // After comparision, if result is true, just remove one item from current collection, and insert
-      // new item, order is not important
+    return result.payload[level][time].filter(res => res.score < score).length !== 0
+      ? of(true)
+      : of(false);
   }
 
-  sendResults(user: {name: string, score: number}) {
-    // const difficulty = 'hard';
-    // const time = 'medium';
-    // const resultCollection = this.afs.collection(`best-results`).doc('medium').collection('time').doc('easy').collection('users');
-    // resultCollection.add({ name: `name`, score: 66 });
+  sendResults(user: User) {
+    const difficulty = 'easy';
+    const time = 'medium';
+    const resultCollection1 = this.afs.collection(`results`).doc('easy').collection('short').doc('users').collection('users');
+     // resultCollection1.add({ name: `u${i++}ser${i}`, score: i + 1 });
+
 
     // const result = resultCollection.snapshotChanges()
     //   .pipe(
