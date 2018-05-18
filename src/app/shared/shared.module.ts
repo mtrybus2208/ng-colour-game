@@ -8,6 +8,7 @@ import { BoardHeaderComponent } from './components/board/board-header/board-head
 import { BoardBodyComponent } from './components/board/board-body/board-body.component';
 import { MapGameTimeToSecPipe } from './pipes/mapGameTimeToSec.pipe';
 
+import { ReactiveFormsModule } from '@angular/forms';
 
 export const COMPONENTS = [
   ContainerComponent,
@@ -28,10 +29,12 @@ export const PIPES = [
   imports: [
     CommonModule,
     FlexLayoutModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   exports: [
     CommonModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     ...COMPONENTS,
     ...PIPES,

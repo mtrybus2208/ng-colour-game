@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,8 +12,7 @@ import { DashboarddGuard } from './quards/dashboard.quard';
   declarations: [
     DashboardComponent
   ],
-  imports: [
-    CommonModule,
+  imports: [ 
     DashboardRoutingModule,
     SharedModule,
     MatButtonModule,

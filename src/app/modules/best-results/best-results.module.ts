@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material';
 
@@ -10,8 +9,7 @@ import { SharedModule } from './../../shared/shared.module';
   declarations: [
     BestResultsComponent
   ],
-  imports: [
-    CommonModule,
+  imports: [ 
     BestResultsRoutingModule,
     SharedModule,
     MatButtonModule,

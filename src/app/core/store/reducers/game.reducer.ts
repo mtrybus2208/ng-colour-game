@@ -56,7 +56,8 @@ export function reducer(state: GameState = initialState, action: GameActions): G
     case GameActionTypes.IncreaseResult: {
       return {
         ...state,
-        score: state.score + 1,
+        // score: state.score + 1,
+        score: state.score + 10,
       };
     }
 
