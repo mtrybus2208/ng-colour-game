@@ -48,7 +48,7 @@ export class SendResults implements Action {
 }
 export class SendResultsSuccess implements Action {
   readonly type = ResultsActionTypes.SendResultsSuccess;
-  constructor(public payload?: any) {}
+  constructor(public payload: string) {}
 }
 export class SendResultsFail implements Action {
   readonly type = ResultsActionTypes.SendResultsFail;

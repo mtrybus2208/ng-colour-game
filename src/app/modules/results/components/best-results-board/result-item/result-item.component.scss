@@ -5,6 +5,10 @@
   box-shadow: getTheme(shadow, base); 
   margin: 20px;
   justify-content: space-between;
+  &.active-result {
+    background: getTheme(grey, cloud);
+    color: darken( getTheme(primary), 20% );
+  }
    .result-item {
     padding: 10px 15px;
    }

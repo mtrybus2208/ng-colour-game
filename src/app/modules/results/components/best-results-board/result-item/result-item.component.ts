@@ -9,10 +9,10 @@ export class ResultItemComponent implements OnInit {
 
   @Input() result: any;
   @Input() index: any;
+  @Input() lastBestScoreId: string;
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

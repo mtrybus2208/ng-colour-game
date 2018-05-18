@@ -1,4 +1,4 @@
-<div class="result"> 
+<div class="result" [ngClass]="{'active-result': lastBestScoreId==result.id}"> 
   <span class="result-item result-name">{{index + 1}}. {{result.name}}</span>
   <span class="result-item result-score">{{result.score}} pkt</span> 
 </div>

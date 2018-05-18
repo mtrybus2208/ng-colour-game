@@ -16,6 +16,7 @@ export class BestResultsComponent implements OnInit {
 
   result$: Observable<ResultsState>;
   resultArr$: Observable<Array<any>>;
+  lastBestScoreId$: Observable<string>;
 
   constructor(private resultsState: Store<ResultsState>) { }
 
@@ -31,6 +32,7 @@ export class BestResultsComponent implements OnInit {
   getResultsState() {
     this.result$ = this.resultsState.select(fromResultsStore.getResultsState);
     this.resultArr$ = this.resultsState.select(fromResultsStore.getResultsArray);
+    this.lastBestScoreId$ = this.resultsState.select(fromResultsStore.getlastBestScoreId);
   }
 
 }

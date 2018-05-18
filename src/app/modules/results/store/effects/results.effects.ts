@@ -79,8 +79,7 @@ export class ResultsEffects {
       return this.resService
         .sendResults(resToSend)
         .pipe(
-          tap(wynik => console.log(wynik)),
-          map(results => new resultsActions.SendResultsSuccess(true)),
+          map(lastBestScoreId => new resultsActions.SendResultsSuccess(lastBestScoreId)),
           catchError(error => of(new resultsActions.SendResultsFail(error)))
         );
     })

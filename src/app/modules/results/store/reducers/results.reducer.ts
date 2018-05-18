@@ -5,6 +5,7 @@ export interface ResultsState {
   loaded: boolean;
   loading: boolean;
   isTopScore: any;
+  lastBestScoreId: string;
 }
 
 const initialState: ResultsState = {
@@ -12,6 +13,7 @@ const initialState: ResultsState = {
   loaded: false,
   loading: false,
   isTopScore: null,
+  lastBestScoreId: null,
 };
 
 export function reducer(state: ResultsState = initialState, action: ResultsActions): ResultsState {
@@ -40,7 +42,14 @@ export function reducer(state: ResultsState = initialState, action: ResultsActio
     case ResultsActionTypes.CompareResultsSuccess: {
       return {
         ...state,
-        isTopScore: action.payload
+        isTopScore: action.payload,
+        lastBestScoreId: null
+      };
+    }
+    case ResultsActionTypes.SendResultsSuccess: {
+      return {
+        ...state,
+        lastBestScoreId: action.payload
       };
     }
 

@@ -9,14 +9,21 @@ import { ResultsState } from './../../store/reducers';
   styleUrls: ['./best-results-board.component.scss']
 })
 export class BestResultsBoardComponent implements OnInit, OnChanges {
+
   @Input() resultArr: Array<{level: string, data: Array<any>}>;
+  @Input() lastBestScoreId: string;
 
   constructor() { }
 
-  ngOnInit() {}
-
-  ngOnChanges() {
-    console.log(this.resultArr);
+  ngOnInit() {
+    this.setTab();
   }
+
+  ngOnChanges() { }
+
+  setTab() {
+    
+  }
+ 
 
 }

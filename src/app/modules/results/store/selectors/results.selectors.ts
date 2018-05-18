@@ -14,6 +14,8 @@ export const getIsTopScore = createSelector(fromResults.getResultsState, results
 
 export const getBestResults = createSelector(fromResults.getResultsState, results => results.bestResults);
 
+export const getlastBestScoreId = createSelector(fromResults.getResultsState, results => results.lastBestScoreId);
+
 export const getResultsArray = createSelector(getBestResults, (resObj) => {
   return Object.keys(resObj).map(level => ({
     level,
