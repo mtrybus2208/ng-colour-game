@@ -1,13 +1,13 @@
 <app-board (ngSubmit)="false" class="best-results-board"> 
  
-  <mat-tab-group class="best-results-tab primary-tab" [selectedIndex]="1">
+  <mat-tab-group class="best-results-tab primary-tab" [selectedIndex]="levelTabIndex">
     <mat-tab
       *ngFor="let level of resultArr"
       label={{level.level}}>
       <div class="best-results-content">
         <div class="best-results-body">
 
-          <mat-tab-group class="best-results-tab nested-tab" [selectedIndex]="0">
+          <mat-tab-group class="best-results-tab nested-tab" [selectedIndex]="timeTabIndex">
             <mat-tab  *ngFor="let item of level.data" label= '{{item.time | mapGameTimeToSec}}'>
                 <div class="best-results-scores">
                     <app-result-item
@@ -25,5 +25,4 @@
     </mat-tab> 
   </mat-tab-group>
 </app-board>
-{{lastBestScoreId}}
  

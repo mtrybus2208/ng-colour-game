@@ -57,14 +57,14 @@ export function reducer(state: GameState = initialState, action: GameActions): G
       return {
         ...state,
         // score: state.score + 1,
-        score: state.score + 10,
+        score: state.score + 5,
       };
     }
 
     case GameActionTypes.DecreaseResult: {
       return {
         ...state,
-        score: state.score === 0 ? state.score : state.score - 1,
+        score: state.score === 0 ? state.score : state.score - 5,
       };
     }
 

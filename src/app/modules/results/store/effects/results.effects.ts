@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { RootState } from './../../../../core/store';
 import { ResultsState } from './../../store';
 import { ResultsService } from './../../services/results.service';
+import * as RouterActions from './../../../../core/store/actions/router.actions';
 import * as resultsActions from './../actions';
 import * as fromGameSelectors from './../../../../core/store/selectors';
 import * as fromResultsSelectors from './../../store/selectors';
@@ -84,4 +85,14 @@ export class ResultsEffects {
         );
     })
   );
+
+  @Effect()
+  sendResultsSuccess$ = this.actions$.pipe(
+    ofType(ResultsActionTypes.SendResultsSuccess),
+    map(() => new RouterActions.Go({
+      path: ['/results/best'],
+    })),
+    catchError(err => of(err)),
+  );
+
 }

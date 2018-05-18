@@ -12,6 +12,7 @@ export enum ResultsActionTypes {
   SendResults = '[Results] SendResults',
   SendResultsSuccess = '[Results] SendResults Success',
   SendResultsFail = '[Results] SendResults Fail',
+  ResetlastBestScore = '[Results] Reset last best score',
 }
 // Compare Actions
 export class CompareResults implements Action {
@@ -55,6 +56,12 @@ export class SendResultsFail implements Action {
   constructor(public payload?: any) {}
 }
 
+// Reset Last Score
+export class ResetlastBestScore implements Action {
+  readonly type = ResultsActionTypes.ResetlastBestScore;
+  constructor() {}
+}
+
 // action types
 export type ResultsActions =
   | CompareResults
@@ -65,4 +72,5 @@ export type ResultsActions =
   | GetResultsFail
   | SendResults
   | SendResultsSuccess
+  | ResetlastBestScore
   | SendResultsFail;

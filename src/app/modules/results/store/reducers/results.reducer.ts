@@ -43,13 +43,18 @@ export function reducer(state: ResultsState = initialState, action: ResultsActio
       return {
         ...state,
         isTopScore: action.payload,
-        lastBestScoreId: null
       };
     }
     case ResultsActionTypes.SendResultsSuccess: {
       return {
         ...state,
         lastBestScoreId: action.payload
+      };
+    }
+    case ResultsActionTypes.ResetlastBestScore: {
+      return {
+        ...state,
+        lastBestScoreId: null
       };
     }
 
