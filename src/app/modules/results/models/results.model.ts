@@ -21,3 +21,9 @@ export interface UserResults {
   time: number;
   level: string;
 }
+
+export interface ResultToSend {
+  level: string;
+  user: User;
+  time: number;
+}

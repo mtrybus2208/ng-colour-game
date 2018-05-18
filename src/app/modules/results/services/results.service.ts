@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { mergeMap, switchMap, tap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
+import { fromPromise } from 'rxjs/observable/fromPromise';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 
-import { User, Times, BestResults, UserResults } from './../models/results.model';
+import { User, Times, BestResults, UserResults, ResultToSend } from './../models/results.model';
 import { MapGameTimeToSecPipe } from './../../../shared/pipes/mapGameTimeToSec.pipe';
 
 @Injectable()
@@ -56,7 +57,7 @@ import { MapGameTimeToSecPipe } from './../../../shared/pipes/mapGameTimeToSec.p
       map((actions: any) => actions.map(a => a.payload.doc.id)),
 
       mergeMap((act) => {
-        return  of({
+        return of({
           name: act,
           data: act.map(level => this.afs.doc<BestResults>(`results/${level}`))
         });
@@ -90,40 +91,18 @@ import { MapGameTimeToSecPipe } from './../../../shared/pipes/mapGameTimeToSec.p
       : of(false);
   }
 
-  sendResults(user: User) {
-    const difficulty = 'easy';
-    const time = 'medium';
-    const resultCollection1 = this.afs.collection(`results`).doc('easy').collection('short').doc('users').collection('users');
-     // resultCollection1.add({ name: `u${i++}ser${i}`, score: i + 1 });
+  sendResults(res: ResultToSend) {
 
+    const covertedTime = this.timePipe.transform(res.time, true);
 
-    // const result = resultCollection.snapshotChanges()
-    //   .pipe(
-    //     map(actions => actions.map(a => a.payload.doc.data())),
-    //   )
-    //   .subscribe(
-    //     x => {
-    //       console.log('sendResults');
-    //       console.log(x);
-    //     }
-    //   );
-      return of(true);
-  }
+    const resultCollection = this.afs.collection(`results`)
+      .doc(res.level).collection(covertedTime)
+      .doc('users').collection('users');
 
-  mapTimeToNames(time: number) {
-    switch (time) {
-      case 10 : {
-        return 'short';
-      }
-      case 60: {
-        return 'medium';
-      }
-      case 90: {
-        return 'long';
-      }
-      default:
-        return 'long';
-    }
+    return fromPromise(resultCollection.add(res.user))
+      .pipe(
+        map(doc => doc.id)
+      );
   }
 
 }

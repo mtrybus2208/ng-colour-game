@@ -1,5 +1,7 @@
 import { Action } from '@ngrx/store';
 
+import { ResultToSend } from './../../models/results.model';
+
 export enum ResultsActionTypes {
   GetResults = '[Results] GetResults',
   GetResultsSuccess = '[Results] GetResults Success',
@@ -42,7 +44,7 @@ export class GetResultsFail implements Action {
 // Send Actions
 export class SendResults implements Action {
   readonly type = ResultsActionTypes.SendResults;
-  constructor(public payload?: any) {}
+  constructor(public payload: ResultToSend) {}
 }
 export class SendResultsSuccess implements Action {
   readonly type = ResultsActionTypes.SendResultsSuccess;

@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { ResultToSend } from './../../models/results.model';
 
 import * as fromRootStore from './../../../../core/store';
 import * as fromResultsStore from './../../store';
@@ -13,8 +14,8 @@ import * as fromResultsStore from './../../store';
 })
 export class ResultsComponent implements OnInit {
 
-  score$: Observable<boolean>;
-  difficulty$: Observable<boolean>;
+  score$: Observable<number>;
+  difficulty$: Observable<string>;
   timer$: Observable<number>;
   isTopScore$: Observable<boolean>;
 
@@ -40,11 +41,9 @@ export class ResultsComponent implements OnInit {
    this.resultsState.dispatch(new fromResultsStore.CompareResults());
   }
 
-  onSendResult() {
-    const user = {
-      name: 'Jan',
-      score: 5
-    };
-    this.resultsState.dispatch(new fromResultsStore.SendResults(user));
+  onSendResult(resultsToSend: ResultToSend): void {
+    console.log('onSendResult');
+    console.log(resultsToSend);
+    this.resultsState.dispatch(new fromResultsStore.SendResults(resultsToSend));
   }
 }

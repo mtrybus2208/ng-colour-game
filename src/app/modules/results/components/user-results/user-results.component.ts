@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ResultToSend } from './../../models/results.model';
 
 @Component({
   selector: 'app-user-results',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserResultsComponent implements OnInit {
 
+  @Input() score: number;
+  @Input() difficulty: string;
+  @Input() timer: number;
+  @Input() isTopScore: boolean;
+  @Output() sendResult = new EventEmitter<ResultToSend>();
+
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  onSendResult(name: string): void {
+    const resultsToSend = {
+      level: this.difficulty,
+      user: { name, score: this.score },
+      time: this.timer,
+    };
+    this.sendResult.emit(resultsToSend);
   }
 
 }

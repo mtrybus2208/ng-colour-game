@@ -1,3 +1,16 @@
-<p>
-  user-results works!
+<app-user-score
+  [score]="score"
+  [difficulty]="difficulty"
+  [timer]="timer">
+</app-user-score>
+ 
+<app-add-result-form *ngIf="isTopScore"
+  (sendResult)="onSendResult($event)"
+  [isTopScore]="isTopScore">
+</app-add-result-form>
+
+<p *ngIf="isTopScore==null" class="center">Checking best scores</p>
+<p *ngIf="isTopScore== false" class="center">
+  Your score is not on the best list, try again!
 </p>
+ 

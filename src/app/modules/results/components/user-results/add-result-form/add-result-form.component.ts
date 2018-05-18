@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-result-form',
@@ -7,9 +8,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddResultFormComponent implements OnInit {
 
-  constructor() { }
+  addResultForm: FormGroup;
+  @Input() isTopScore: boolean;
+  @Output() sendResult = new EventEmitter<string>();
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.createForm();
   }
 
+  onSendResult() {
+    this.sendResult.emit(this.nickname.value);
+  }
+
+  createForm() {
+    this.addResultForm = this.fb.group({
+      nickname: ['', Validators.required],
+    });
+  }
+
+  get nickname() { return this.addResultForm.get('nickname'); }
+
 }
+
+
+// @Output() resetError = new EventEmitter<boolean>();
+// this.signIn.emit<string>(credentials);

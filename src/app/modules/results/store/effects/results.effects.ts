@@ -71,14 +71,16 @@ export class ResultsEffects {
   );
 
   @Effect()
-  sendResults$ = this.actions$.pipe(
+  sendResults$ = this.actions$
+  .pipe(
     ofType(ResultsActionTypes.SendResults),
-    map((action: any) => action.payload),
-    exhaustMap((payload) => {
+    map((action: resultsActions.SendResults) => action.payload),
+    exhaustMap((resToSend) => {
       return this.resService
-        .sendResults(payload)
+        .sendResults(resToSend)
         .pipe(
-          map(results => new resultsActions.SendResultsSuccess(results)),
+          tap(wynik => console.log(wynik)),
+          map(results => new resultsActions.SendResultsSuccess(true)),
           catchError(error => of(new resultsActions.SendResultsFail(error)))
         );
     })

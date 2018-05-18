@@ -1,34 +1,12 @@
  
 <app-container> 
-  <app-board (ngSubmit)="false" class="">
-    <div header style="padding: 20px;">
-        <h2>Results</h2>
-        <p>TYour score: {{ this.score$ | async }} 
-        </p>
-        <p>difficulty level: {{ this.difficulty$ | async }} 
-        </p>
-        <p>Time: {{ this.timer$ | async }}   </p>
-    </div> 
-  </app-board>
-
-  <app-board (ngSubmit)="false" class="" *ngIf="isTopScore$ | async">
-    <div header style="padding: 20px;">
-        <h2>Congratulations</h2>
-        <p class="center">Your score is on the best list</p>
-        <div class="example-form">
-          <mat-form-field class="example-full-width">
-            <input matInput placeholder="Your nick">
-          </mat-form-field>
-        </div>
-        <button mat-raised-button (click)="onSendResult()">Send Results</button>
-    </div> 
-  </app-board>
-
-      <p *ngIf="(isTopScore$ | async)==null" class="center">Checking best scores</p>
-      <p *ngIf="(isTopScore$ | async)== false" class="center">
-        Your score is not on the best list, try again!
-      </p>
- 
+  <app-user-results
+    [score]="(this.score$ | async)"
+    [difficulty]="(this.difficulty$ | async)"
+    [isTopScore]="(this.isTopScore$ | async)"
+    [timer]="(this.timer$ | async)"
+    (sendResult)="onSendResult($event)">
+  </app-user-results>
 </app-container> 
 
  

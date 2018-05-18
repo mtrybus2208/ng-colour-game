@@ -1,3 +1,19 @@
-<p>
-  add-result-form works!
-</p>
+<app-board class="">
+  <div header style="padding: 20px;">
+      <h2>Congratulations</h2>
+      <p class="center">Your score is on the best list</p>
+
+      <form [formGroup]="addResultForm" (ngSubmit)="onSendResult()">
+        
+        <mat-form-field class="example-full-width" style="margin: 20px auto;">
+          <input matInput placeholder="Nickname" formControlName="nickname" maxlength="13">
+          <mat-error *ngIf="nickname.invalid && nickname.errors.required">
+            Nickname is required 
+          </mat-error>
+        </mat-form-field>
+        
+        <button mat-raised-button type="submit">Send Results</button>
+      </form>
+
+  </div> 
+</app-board>          
