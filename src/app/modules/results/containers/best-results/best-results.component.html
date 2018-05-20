@@ -7,6 +7,8 @@
     [resultArr]="(resultArr$ | async)">
   </app-best-results-board>
  
-  <ng-template #loader>LOADING...</ng-template>
+  <ng-template #loader>
+    <app-loader style="margin-top: 60px">Checking best scores</app-loader>
+  </ng-template> 
 
 </app-container> 

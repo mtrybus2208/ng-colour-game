@@ -12,8 +12,9 @@ import { BestResultsComponent } from './containers/best-results/best-results.com
 import { ResultsGuard } from './quards/result.quard';
 import { BestResultsExistGuard } from './quards/best-results-exist.quard';
 import { BestResultsBoardComponent } from './components/best-results-board/best-results-board.component';
-import { ResultItemComponent } from './components/best-results-board/result-item/result-item.component';
+import { UserResultItemComponent } from './components/user-results/user-result-item/user-result-item.component';
 import { ResultsService } from './services/results.service';
+import { ResultItemComponent } from './components/best-results-board/result-item/result-item.component';
 
 import { MapGameTimeToSecPipe } from './../../shared/pipes/mapGameTimeToSec.pipe';
 
@@ -27,10 +28,11 @@ import { AddResultFormComponent } from './components/user-results/add-result-for
     ResultsComponent,
     BestResultsComponent,
     BestResultsBoardComponent,
+    UserResultItemComponent,
     ResultItemComponent,
     UserResultsComponent,
     UserScoreComponent,
-    AddResultFormComponent, 
+    AddResultFormComponent,
   ],
   imports: [
     SharedModule,

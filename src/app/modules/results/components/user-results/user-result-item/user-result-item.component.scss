@@ -1,0 +1,14 @@
+@import '~assets/scss/themes/light-theme';
+
+.result-item {
+  background-color: getTheme(grey, cloud);
+  box-shadow: getTheme(shadow, base); 
+  display: flex;
+  margin-bottom: 15px;
+  .result-tile {
+    padding: 10px;
+    padding-right: 0;
+  }
+}
+
+ 

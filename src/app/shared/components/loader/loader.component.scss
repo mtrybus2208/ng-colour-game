@@ -1,0 +1,14 @@
+@import '~assets/scss/global/helpers.scss';
+
+:host {
+  display: block;
+  text-align: center;
+}
+.loader-box{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .loader-icon {
+    padding: 0 6px;
+  }
+}

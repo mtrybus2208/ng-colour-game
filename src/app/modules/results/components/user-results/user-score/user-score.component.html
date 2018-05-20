@@ -1,8 +1,22 @@
-<app-board (ngSubmit)="false" class="">
+<app-board>
   <div header style="padding: 20px;">
       <h2>Results</h2>
-      <p>Your score: {{score}}</p>
-      <p>difficulty level: {{difficulty}} </p>
-      <p>Time: {{timer}}</p>
+
+      <app-user-result-item>
+        <span name>Score:</span>
+        <span score>{{score}}</span>
+      </app-user-result-item>
+
+      <app-user-result-item>
+        <span name>Difficulty:</span>
+        <span score>{{difficulty}}</span>
+      </app-user-result-item>
+
+      <app-user-result-item>
+        <span name>Time:</span>
+        <span score>{{timer}}s</span>
+      </app-user-result-item>
   </div> 
 </app-board>
+
+ 

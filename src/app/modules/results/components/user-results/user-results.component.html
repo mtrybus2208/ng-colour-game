@@ -9,8 +9,13 @@
   [isTopScore]="isTopScore">
 </app-add-result-form>
 
-<p *ngIf="isTopScore==null" class="center">Checking best scores</p>
-<p *ngIf="isTopScore== false" class="center">
-  Your score is not on the best list, try again!
+<app-loader *ngIf="isTopScore == null">
+    Checking best scores
+</app-loader> 
+<p *ngIf="isTopScore == false" class="result-checker">
+  <span class="icon-box">
+    <i class="material-icons">sentiment_very_dissatisfied</i>
+    Your score is not on the best list, try again!
+  </span>
 </p>
  

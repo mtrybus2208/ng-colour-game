@@ -9,12 +9,14 @@ import { BoardBodyComponent } from './components/board/board-body/board-body.com
 import { MapGameTimeToSecPipe } from './pipes/mapGameTimeToSec.pipe';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoaderComponent } from './components/loader/loader.component';
 
 export const COMPONENTS = [
   ContainerComponent,
   BoardComponent,
   BoardHeaderComponent,
   BoardBodyComponent,
+  LoaderComponent,
 ];
 
 export const PIPES = [
