@@ -1,7 +1,22 @@
+@import '~assets/scss/themes/light-theme';
+
 body {
   margin: 0;
   padding: 0;
   color: getTheme(baseFontColor);
   font-family: getTheme(basefontFamily); 
   background-image: url('/assets//img/bg.jpg');
+}
+
+::selection{
+  background: lighten(getTheme(primary), 35%);
+}
+::-moz-selection{
+  background: lighten( getTheme(primary), 35%);
+}
+img::selection{
+  background: transparent;
+}
+img::-moz-selection{
+  background: transparent;
 }
