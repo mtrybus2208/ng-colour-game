@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -13,6 +15,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     CoreModule,
     HttpClientModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent]
