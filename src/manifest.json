@@ -1,7 +1,7 @@
 {
-  "name": "colour",
-  "short_name": "colour",
-  "theme_color": "#1976d2",
+  "name": "colour-game",
+  "short_name": "colour-game",
+  "theme_color": "#b36bc5",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "/",
