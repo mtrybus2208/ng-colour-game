@@ -57,7 +57,7 @@ export function reducer(state: GameState = initialState, action: GameActions): G
       return {
         ...state,
         // score: state.score + 1,
-        score: state.score + 5,
+        score: state.score + 25,
       };
     }
 
