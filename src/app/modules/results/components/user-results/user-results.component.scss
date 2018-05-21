@@ -3,3 +3,12 @@
 .result-checker {
   text-align: center;
 }
+.icon-compare {
+  @media (max-width: 499px) {
+    flex-direction: column;
+    margin-top: -20px;
+    i {
+      padding-bottom: 10px;
+    }
+  }
+}
