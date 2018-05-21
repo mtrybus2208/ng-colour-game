@@ -1,4 +1,4 @@
-<app-board class="">
+<app-board>
   <div header style="padding: 20px;">
       <h2>Congratulations</h2>
       <p class="center">Your score is on the best list</p>
@@ -12,10 +12,12 @@
           </mat-error>
         </mat-form-field>
         
-        <button mat-raised-button type="submit">
-          <app-loader>Send Results</app-loader> 
+        <button mat-raised-button type="submit" [disabled]="!addResultForm.valid">
+            <span class="flex-center">
+                <app-loader *ngIf="loading"></app-loader> 
+                <span>Send Results</span>
+            </span>
         </button>
       </form>
-
   </div> 
 </app-board>          

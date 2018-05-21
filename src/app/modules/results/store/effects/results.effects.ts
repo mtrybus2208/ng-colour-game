@@ -30,7 +30,7 @@ export class ResultsEffects {
   compareResults$ = this.actions$.pipe(
     ofType(ResultsActionTypes.CompareResults),
     withLatestFrom(
-      this.resultsState.select(fromResultsSelectors.getBestResults),
+      this.resultsState.select(fromResultsSelectors.getBestResultsEntities),
       this.gameState.select(fromGameSelectors.getScoreParams),
     ),
     switchMap(([payload, resultsArr, userResults]) => {

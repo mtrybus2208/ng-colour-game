@@ -2,21 +2,23 @@ import { createSelector } from '@ngrx/store';
 
 import * as fromResults from './../reducers';
 
-export const getFullBestResults = createSelector(fromResults.getResultsState, results => results);
+// User results
+export const getUserResults = createSelector(fromResults.getResultsState, results => results.userResults);
 
-export const getBestResultsArray = createSelector(fromResults.getResultsState, results => results.bestResults);
+export const getIsTopScore = createSelector(getUserResults, results => results.isTopScore);
 
-export const getResultsLoaded = createSelector(fromResults.getResultsState, results => results.loaded);
+export const getUserResultsLoading = createSelector(getUserResults, results => results.loading);
 
-export const getResultsLoading = createSelector(fromResults.getResultsState, results => results.loading);
-
-export const getIsTopScore = createSelector(fromResults.getResultsState, results => results.isTopScore);
-
+// Best results
 export const getBestResults = createSelector(fromResults.getResultsState, results => results.bestResults);
 
-export const getlastBestScoreId = createSelector(fromResults.getResultsState, results => results.lastBestScoreId);
+export const getBestResultsEntities = createSelector(getBestResults, results => results.entities);
 
-export const getResultsArray = createSelector(getBestResults, (resObj) => {
+export const getBestResultsLoaded = createSelector(getBestResults, results => results.loaded);
+
+export const getlastBestScoreId = createSelector(getBestResults, results => results.lastBestScoreId);
+
+export const getResultsArray = createSelector(getBestResultsEntities, (resObj) => {
   return Object.keys(resObj).map(level => ({
     level,
     data: Object.keys(resObj[level]).map(time => ({

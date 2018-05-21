@@ -1,19 +1,34 @@
 import { ResultsActionTypes, ResultsActions } from './../actions';
 
-export interface ResultsState {
-  bestResults: Array<any>;
+
+export interface BestResults {
+  entities: Array<any>;
   loaded: boolean;
   loading: boolean;
-  isTopScore: any;
   lastBestScoreId: string;
+}
+export interface UserResults {
+  isTopScore: boolean;
+  loaded: boolean;
+  loading: boolean;
+}
+export interface ResultsState {
+  bestResults: BestResults;
+  userResults: UserResults;
 }
 
 const initialState: ResultsState = {
-  bestResults: null,
-  loaded: false,
-  loading: false,
-  isTopScore: null,
-  lastBestScoreId: null,
+  bestResults: {
+    entities: null,
+    loaded: false,
+    loading: false,
+    lastBestScoreId: null,
+  },
+  userResults: {
+    isTopScore: null,
+    loaded: false,
+    loading: false,
+  }
 };
 
 export function reducer(state: ResultsState = initialState, action: ResultsActions): ResultsState {
@@ -21,40 +36,83 @@ export function reducer(state: ResultsState = initialState, action: ResultsActio
     case ResultsActionTypes.GetResults: {
       return {
         ...state,
-        isTopScore: null
+        userResults: {
+          ...state.userResults,
+          isTopScore: null
+        }
       };
     }
     case ResultsActionTypes.GetResultsSuccess: {
       return {
         ...state,
-        loaded: true,
-        loading: false,
-        bestResults: action.payload
+        bestResults: {
+          ...state.bestResults,
+          entities: action.payload,
+          loaded: true,
+          loading: false,
+        }
       };
     }
     case ResultsActionTypes.GetResultsFail: {
       return {
         ...state,
-        loaded: false,
-        loading: false,
+        bestResults: {
+          ...state.bestResults,
+          loaded: false,
+          loading: false,
+        }
       };
     }
     case ResultsActionTypes.CompareResultsSuccess: {
       return {
         ...state,
-        isTopScore: action.payload,
+        userResults: {
+          ...state.userResults,
+          isTopScore: action.payload,
+        }
+      };
+    }
+    case ResultsActionTypes.SendResults: {
+      return {
+        ...state,
+        userResults: {
+          ...state.userResults,
+          loading: true,
+          loaded: false,
+        }
+      };
+    }
+    case ResultsActionTypes.SendResultsFail: {
+      return {
+        ...state,
+        userResults: {
+          ...state.userResults,
+          loading: false,
+          loaded: false,
+        }
       };
     }
     case ResultsActionTypes.SendResultsSuccess: {
       return {
         ...state,
-        lastBestScoreId: action.payload
+        bestResults: {
+          ...state.bestResults,
+          lastBestScoreId: action.payload
+        },
+        userResults: {
+          ...state.userResults,
+          loading: false,
+          loaded: true,
+        }
       };
     }
     case ResultsActionTypes.ResetlastBestScore: {
       return {
         ...state,
-        lastBestScoreId: null
+        bestResults: {
+          ...state.bestResults,
+          lastBestScoreId: null
+        }
       };
     }
 

@@ -10,6 +10,7 @@ export class AddResultFormComponent implements OnInit {
 
   addResultForm: FormGroup;
   @Input() isTopScore: boolean;
+  @Input() loading: boolean;
   @Output() sendResult = new EventEmitter<string>();
 
   constructor(private fb: FormBuilder) { }
@@ -31,7 +32,3 @@ export class AddResultFormComponent implements OnInit {
   get nickname() { return this.addResultForm.get('nickname'); }
 
 }
-
-
-// @Output() resetError = new EventEmitter<boolean>();
-// this.signIn.emit<string>(credentials);

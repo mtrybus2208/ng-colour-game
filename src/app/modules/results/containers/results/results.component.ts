@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { ResultToSend } from './../../models/results.model';
 
+import { ResultToSend } from './../../models/results.model';
 import * as fromRootStore from './../../../../core/store';
 import * as fromResultsStore from './../../store';
 
@@ -18,6 +18,7 @@ export class ResultsComponent implements OnInit {
   difficulty$: Observable<string>;
   timer$: Observable<number>;
   isTopScore$: Observable<boolean>;
+  loading$: Observable<boolean>;
 
   constructor(
     private gameState: Store<fromRootStore.RootState>,
@@ -29,21 +30,19 @@ export class ResultsComponent implements OnInit {
     this.compareResults();
   }
 
-  getGameState() {
-    // Crate specific selector for that
+  getGameState(): void {
     this.score$ = this.gameState.select(fromRootStore.getScore);
     this.difficulty$ = this.gameState.select(fromRootStore.difficulty);
     this.timer$ = this.gameState.select(fromRootStore.getTimer);
     this.isTopScore$ = this.gameState.select(fromResultsStore.getIsTopScore);
+    this.loading$ = this.gameState.select(fromResultsStore.getUserResultsLoading);
   }
 
-  compareResults() {
+  compareResults(): void {
    this.resultsState.dispatch(new fromResultsStore.CompareResults());
   }
 
   onSendResult(resultsToSend: ResultToSend): void {
-    console.log('onSendResult');
-    console.log(resultsToSend);
     this.resultsState.dispatch(new fromResultsStore.SendResults(resultsToSend));
   }
 }

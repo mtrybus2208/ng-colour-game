@@ -4,6 +4,7 @@
     [score]="(this.score$ | async)"
     [difficulty]="(this.difficulty$ | async)"
     [isTopScore]="(this.isTopScore$ | async)"
+    [loading]="(this.loading$ | async)"
     [timer]="(this.timer$ | async)"
     (sendResult)="onSendResult($event)">
   </app-user-results>

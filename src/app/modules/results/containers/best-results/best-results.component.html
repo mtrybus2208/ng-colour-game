@@ -1,6 +1,6 @@
 <app-container> 
   <app-best-results-board
-    *ngIf="(result$ | async).loaded; else loader"
+    *ngIf="(bestResultsLoaded$ | async); else loader"
     [lastBestScoreId]="(lastBestScoreId$ | async)"
     [timer]="(timer$ | async)"
     [difficulty]="(difficulty$ | async)"
