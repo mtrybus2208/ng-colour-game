@@ -14,8 +14,7 @@ export class HeaderComponent implements OnInit {
 
   constructor( ) { }
 
-  ngOnInit() {
-    console.log('siema wita header');
+  ngOnInit() { 
   }
 
 }
