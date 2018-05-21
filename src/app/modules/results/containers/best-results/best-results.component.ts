@@ -16,7 +16,7 @@ import * as fromRootStore from './../../../../core/store';
 })
 export class BestResultsComponent implements OnInit, OnDestroy {
 
-  result$: Observable<ResultsState>;
+  bestResultsLoaded$: Observable<boolean>;
   resultArr$: Observable<Array<any>>;
   lastBestScoreId$: Observable<string>;
   difficulty$: Observable<string>;
@@ -38,7 +38,7 @@ export class BestResultsComponent implements OnInit, OnDestroy {
   }
 
   getResultsState() {
-    this.result$ = this.resultsState.select(fromResultsStore.getResultsState);
+    this.bestResultsLoaded$ = this.resultsState.select(fromResultsStore.getBestResultsLoaded);
     this.resultArr$ = this.resultsState.select(fromResultsStore.getResultsArray);
     this.lastBestScoreId$ = this.resultsState.select(fromResultsStore.getlastBestScoreId);
   }

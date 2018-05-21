@@ -12,6 +12,7 @@ export class UserResultsComponent implements OnInit {
   @Input() difficulty: string;
   @Input() timer: number;
   @Input() isTopScore: boolean;
+  @Input() loading: boolean;
   @Output() sendResult = new EventEmitter<ResultToSend>();
 
   constructor() { }

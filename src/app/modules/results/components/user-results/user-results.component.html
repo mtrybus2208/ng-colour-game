@@ -6,6 +6,7 @@
  
 <app-add-result-form *ngIf="isTopScore"
   (sendResult)="onSendResult($event)"
+  [loading]="loading"
   [isTopScore]="isTopScore">
 </app-add-result-form>
 
@@ -17,5 +18,5 @@
     <i class="material-icons">sentiment_very_dissatisfied</i>
     Your score is not on the best list, try again!
   </span>
-</p>
+</p> 
  
