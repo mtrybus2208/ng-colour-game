@@ -79,7 +79,6 @@
             ],
             "assets": [
               "src/assets",
-              "src/favicon.ico",
               "src/manifest.json"
             ]
           }
@@ -135,3 +134,4 @@
     }
   }
 }
+ 
