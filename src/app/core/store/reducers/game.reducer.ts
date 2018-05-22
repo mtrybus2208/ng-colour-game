@@ -16,7 +16,7 @@ export interface GameState {
   base: ColourItem[];
 }
 
-const initialState: GameState = {
+export const initialState: GameState = {
   score: 0,
   timeOptions: [30, 60, 90],
   timer: 60,
