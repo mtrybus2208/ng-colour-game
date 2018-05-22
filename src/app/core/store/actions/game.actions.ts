@@ -5,8 +5,6 @@ import { GameParams } from './../../services/game.service';
 
 export enum GameActionTypes {
   StartGame = '[Game] StartGame',
-  ChangeQuote = '[Game] Change Quote',
-  SubmitQuotesForm = '[Game] Submit Quotes Form',
   ShuffleColours = '[Game] Shuffle Colours',
   ShuffleColoursSuccess = '[Game] Shuffle Colours Success',
   CompareColours = '[Game] Compare Colours',
@@ -34,7 +32,7 @@ export class ResetResult implements Action {
 
 export class ShuffleColours implements Action {
   readonly type = GameActionTypes.ShuffleColours;
-  constructor(public payload?: Object) {}
+  constructor() {}
 }
 export class ShuffleColoursSuccess implements Action {
   readonly type = GameActionTypes.ShuffleColoursSuccess;

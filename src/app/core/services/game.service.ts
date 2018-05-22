@@ -17,7 +17,6 @@ export interface AnswerParam extends GameParams {
 export class GameService {
 
   constructor( ) {}
-
   shuffleColours({diffSet, diff, base}): GameParams {
     const shuffledArr = this.shuffleArray<ColourItem[]>(base);
     const resultArray =  this.getResultColours(diffSet, diff, shuffledArr);
