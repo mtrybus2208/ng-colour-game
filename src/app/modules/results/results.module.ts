@@ -9,8 +9,6 @@ import { ResultsRoutingModule } from './results-routing.module';
 import { SharedModule } from './../../shared/shared.module';
 import { ResultsComponent } from './containers/results/results.component';
 import { BestResultsComponent } from './containers/best-results/best-results.component';
-import { ResultsGuard } from './quards/result.quard';
-import { BestResultsExistGuard } from './quards/best-results-exist.quard';
 import { BestResultsBoardComponent } from './components/best-results-board/best-results-board.component';
 import { UserResultItemComponent } from './components/user-results/user-result-item/user-result-item.component';
 import { ResultsService } from './services/results.service';
@@ -21,7 +19,7 @@ import { MapGameTimeToSecPipe } from './../../shared/pipes/mapGameTimeToSec.pipe
 import { reducers, effects } from './store';
 import { UserResultsComponent } from './components/user-results/user-results.component';
 import { UserScoreComponent } from './components/user-results/user-score/user-score.component';
-import { AddResultFormComponent } from './components/user-results/add-result-form/add-result-form.component'; 
+import { AddResultFormComponent } from './components/user-results/add-result-form/add-result-form.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +41,7 @@ import { AddResultFormComponent } from './components/user-results/add-result-for
     StoreModule.forFeature('results', reducers.results),
     EffectsModule.forFeature(effects),
   ],
-  providers: [ResultsGuard, BestResultsExistGuard, ResultsService, MapGameTimeToSecPipe],
+  providers: [ResultsService, MapGameTimeToSecPipe],
   exports: [ ]
 })
 export class ResultsModule { }

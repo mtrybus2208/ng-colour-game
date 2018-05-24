@@ -23,7 +23,7 @@ import {
 import { HeaderComponent } from './components/header/header.component';
 import { HeaderNavComponent } from './components/header/header-nav/header-nav.component';
 import { GameService } from './services/game.service';
-import { DashboarddGuard } from './../modules/dashboard/quards/dashboard.quard';
+import { GameGuard } from './quards/game.quard';
 
 
 export const COMPONENTS = [
@@ -54,7 +54,7 @@ export const COMPONENTS = [
   providers: [
     { provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
     GameService,
-    //DashboarddGuard,
+    GameGuard,
   ],
   exports: [
     CoreRoutingModule,
