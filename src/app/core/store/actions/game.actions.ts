@@ -5,14 +5,11 @@ import { GameParams } from './../../services/game.service';
 
 export enum GameActionTypes {
   StartGame = '[Game] StartGame',
-  ChangeQuote = '[Game] Change Quote',
-  SubmitQuotesForm = '[Game] Submit Quotes Form',
   ShuffleColours = '[Game] Shuffle Colours',
   ShuffleColoursSuccess = '[Game] Shuffle Colours Success',
   CompareColours = '[Game] Compare Colours',
   CompareColoursSuccess = '[Game] Compare Success',
   CompareColoursFail = '[Game] Compare Fail',
-  UpdateResult = '[Game] Update Result',
   IncreaseResult = '[Game] Increase Result',
   DecreaseResult = '[Game] Decrease Result',
   ResetResult = '[Game] Reset Result',
@@ -34,7 +31,7 @@ export class ResetResult implements Action {
 
 export class ShuffleColours implements Action {
   readonly type = GameActionTypes.ShuffleColours;
-  constructor(public payload?: Object) {}
+  constructor() {}
 }
 export class ShuffleColoursSuccess implements Action {
   readonly type = GameActionTypes.ShuffleColoursSuccess;
@@ -48,12 +45,12 @@ export class CompareColours implements Action {
 
 export class CompareColoursSuccess implements Action {
   readonly type = GameActionTypes.CompareColoursSuccess;
-  constructor(public payload?: any) {}
+  constructor() {}
 }
 
 export class CompareColoursFail implements Action {
   readonly type = GameActionTypes.CompareColoursFail;
-  constructor(public payload?: any) {}
+  constructor() {}
 }
 
 export class IncreaseResult implements Action {

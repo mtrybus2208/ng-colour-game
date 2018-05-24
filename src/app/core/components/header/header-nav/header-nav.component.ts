@@ -14,8 +14,7 @@ export class HeaderNavComponent implements OnInit {
 
   constructor( ) { }
 
-  ngOnInit() {
-    console.log('nav wita');
+  ngOnInit() { 
   }
 
 }
