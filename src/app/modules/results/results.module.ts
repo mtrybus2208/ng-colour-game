@@ -20,6 +20,7 @@ import { reducers, effects } from './store';
 import { UserResultsComponent } from './components/user-results/user-results.component';
 import { UserScoreComponent } from './components/user-results/user-score/user-score.component';
 import { AddResultFormComponent } from './components/user-results/add-result-form/add-result-form.component';
+import { UserResultsGuard } from './guards/userResults.quard';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { AddResultFormComponent } from './components/user-results/add-result-for
     StoreModule.forFeature('results', reducers.results),
     EffectsModule.forFeature(effects),
   ],
-  providers: [ResultsService, MapGameTimeToSecPipe],
+  providers: [UserResultsGuard, ResultsService, MapGameTimeToSecPipe],
   exports: [ ]
 })
 export class ResultsModule { }

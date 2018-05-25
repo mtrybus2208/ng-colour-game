@@ -8,6 +8,7 @@ export interface BestResults {
   lastBestScoreId: string;
 }
 export interface UserResults {
+  scoreChecked: boolean;
   isTopScore: boolean;
   loaded: boolean;
   loading: boolean;
@@ -25,6 +26,7 @@ const initialState: ResultsState = {
     lastBestScoreId: null,
   },
   userResults: {
+    scoreChecked: false,
     isTopScore: null,
     loaded: false,
     loading: false,
@@ -39,6 +41,15 @@ export function reducer(state: ResultsState = initialState, action: ResultsActio
         userResults: {
           ...state.userResults,
           isTopScore: null
+        }
+      };
+    }
+    case ResultsActionTypes.CheckedScore: {
+      return {
+        ...state,
+        userResults: {
+          ...state.userResults,
+          scoreChecked: action.payload,
         }
       };
     }

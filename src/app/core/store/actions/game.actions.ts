@@ -14,6 +14,7 @@ export enum GameActionTypes {
   DecreaseResult = '[Game] Decrease Result',
   ResetResult = '[Game] Reset Result',
   ShowResult = '[Game] ShowResult',
+  FinishGame = '[Game] FinishGame',
 }
 
 export interface StartGameParams {
@@ -24,6 +25,7 @@ export class StartGame implements Action {
   readonly type = GameActionTypes.StartGame;
   constructor(public payload: StartGameParams) {}
 }
+
 export class ResetResult implements Action {
   readonly type = GameActionTypes.ResetResult;
   constructor(public payload?: StartGameParams) {}
@@ -68,6 +70,11 @@ export class ShowResult implements Action {
   constructor(public payload?: number) {}
 }
 
+export class FinishGame implements Action {
+  readonly type = GameActionTypes.FinishGame;
+  constructor() {}
+}
+
 // action types
 export type GameActions =
   | StartGame
@@ -79,4 +86,5 @@ export type GameActions =
   | CompareColoursFail
   | IncreaseResult
   | DecreaseResult
+  | FinishGame
   | ShowResult;

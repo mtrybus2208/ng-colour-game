@@ -2,10 +2,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { DashboardComponent } from './containers/dashboard/dashboard.component';
-import { GameGuard } from './../../core/quards/game.quard';
+import { DashboardGuard } from './quards/dashboard.quard';
 
 const dashboardRoutes: Routes = [
-  { path: '', canActivate: [GameGuard], component: DashboardComponent },
+  { path: '', canActivate: [DashboardGuard], component: DashboardComponent },
 ];
 
 @NgModule({

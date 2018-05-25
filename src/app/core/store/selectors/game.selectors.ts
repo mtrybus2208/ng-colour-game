@@ -4,6 +4,8 @@ import * as fromGame from './../reducers';
 
 export const getBaseColours = createSelector(fromGame.getGameState, game => game.base);
 
+export const getFinished = createSelector(fromGame.getGameState, game => game.finished);
+
 export const getshuffledColours = createSelector(fromGame.getGameState, game => game.shuffledColours);
 
 export const getTimer = createSelector(fromGame.getGameState, game => game.timer);

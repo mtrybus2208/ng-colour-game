@@ -1,6 +1,7 @@
 import { createSelector } from '@ngrx/store';
 
 import * as fromResults from './../reducers';
+import * as fromGame from './../../../../core/store/selectors';
 
 // User results
 export const getUserResults = createSelector(fromResults.getResultsState, results => results.userResults);
@@ -8,6 +9,19 @@ export const getUserResults = createSelector(fromResults.getResultsState, result
 export const getIsTopScore = createSelector(getUserResults, results => results.isTopScore);
 
 export const getUserResultsLoading = createSelector(getUserResults, results => results.loading);
+
+export const getScoreChecked = createSelector(getUserResults, results => results.scoreChecked);
+
+export const getGameStatus = createSelector(
+  fromGame.getshuffledColours,
+  getScoreChecked,
+  (shuffled, checked) => {
+    return {
+      shuffled, checked
+    };
+  }
+
+);
 
 // Best results
 export const getBestResults = createSelector(fromResults.getResultsState, results => results.bestResults);

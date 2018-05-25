@@ -10,6 +10,7 @@ import * as fromRootSelectors from './../selectors';
 
 import * as RouterActions from './../actions/router.actions';
 import * as GameActions from './../actions/game.actions';
+import * as ResultActions from './../../../modules/results/store/actions';
 
 const { GameActionTypes } = GameActions;
 
@@ -45,7 +46,7 @@ export class GameEffects {
     map((shuffled) => new GameActions.ShuffleColoursSuccess(shuffled)),
     catchError(err => of(err)),
   );
- 
+
   @Effect()
   compareColours$ = this.actions$.pipe(
     ofType(GameActionTypes.CompareColours),
@@ -87,9 +88,12 @@ export class GameEffects {
   @Effect()
   showResult$ = this.actions$.pipe(
     ofType(GameActionTypes.ShowResult),
-    map(() => new RouterActions.Go({
-      path: ['/results/current'],
-    })),
+    flatMap(payload => [
+      new RouterActions.Go({
+        path: ['/results/current'],
+      }),
+      new ResultActions.CheckedScore(false),
+    ]),
     catchError(err => of(err)),
   );
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
@@ -12,7 +12,7 @@ import * as fromResultsStore from './../../store';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss'],
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent implements OnInit, OnDestroy {
 
   score$: Observable<number>;
   difficulty$: Observable<string>;
@@ -44,5 +44,9 @@ export class ResultsComponent implements OnInit {
 
   onSendResult(resultsToSend: ResultToSend): void {
     this.resultsState.dispatch(new fromResultsStore.SendResults(resultsToSend));
+  }
+
+  ngOnDestroy() {
+    this.resultsState.dispatch(new fromResultsStore.CheckedScore(true));
   }
 }

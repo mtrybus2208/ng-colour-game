@@ -14,9 +14,11 @@ export interface GameState {
   question: ColourItem;
   shuffledColours: ColourItem[];
   base: ColourItem[];
+  finished: boolean;
 }
 
 export const initialState: GameState = {
+  finished: true,
   score: 0,
   timeOptions: [30, 60, 90],
   timer: 60,
@@ -36,6 +38,19 @@ export const initialState: GameState = {
 export function reducer(state: GameState = initialState, action: GameActions): GameState {
   switch (action.type) {
 
+    case GameActionTypes.FinishGame: {
+      return {
+        ...state,
+        finished: true,
+      };
+    }
+
+    case GameActionTypes.ShuffleColours: {
+      return {
+        ...state,
+        finished: false,
+      };
+    }
     case GameActionTypes.ShuffleColoursSuccess: {
       return {
         ...state,

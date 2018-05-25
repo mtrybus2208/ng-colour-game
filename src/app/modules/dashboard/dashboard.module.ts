@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { DashboardComponent } from './containers/dashboard/dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { SharedModule } from './../../shared/shared.module';
+import { DashboardGuard } from './quards/dashboard.quard';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { SharedModule } from './../../shared/shared.module';
     MatButtonModule,
     MatIconModule,
   ],
-  providers: [],
+  providers: [DashboardGuard],
   exports: [
   ]
 })
