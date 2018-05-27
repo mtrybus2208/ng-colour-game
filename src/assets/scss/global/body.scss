@@ -6,7 +6,11 @@ body {
   color: getTheme(baseFontColor);
   font-family: getTheme(basefontFamily); 
   background-image: url('/assets//img/bg.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: getTheme(grey, cloud);
 }
+
 
 ::selection{
   background: lighten(getTheme(primary), 35%);

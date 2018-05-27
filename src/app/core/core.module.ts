@@ -23,16 +23,18 @@ import {
 import { HeaderComponent } from './components/header/header.component';
 import { HeaderNavComponent } from './components/header/header-nav/header-nav.component';
 import { GameService } from './services/game.service';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 export const COMPONENTS = [
   HeaderComponent,
   HeaderNavComponent,
+  FooterComponent,
 ];
 
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS,
   ],
   imports: [
     BrowserAnimationsModule,

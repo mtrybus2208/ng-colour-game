@@ -1,0 +1,20 @@
+@import '~assets/scss/themes/light-theme';
+
+.footer {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: getTheme(shadow, base);
+  background-color: #fff;
+  height: 50px;
+  /* padding: 0 20px; */
+  align-items: center;
+  color: #bbb;
+  &-primary {
+    background-color: getTheme(primary);
+  }
+  &-sec {
+    background-color: getTheme(secondary);
+  }
+} 

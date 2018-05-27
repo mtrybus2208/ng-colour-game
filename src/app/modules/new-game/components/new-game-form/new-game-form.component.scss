@@ -1,0 +1,11 @@
+.avatar-box {
+  position: absolute;
+  left: -30%;
+  bottom: -20%;
+  img {
+    max-width: 170px;
+  }
+  @media(max-width: 1200px){
+    display: none;
+  }
+}
