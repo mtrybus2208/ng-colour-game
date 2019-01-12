@@ -1,6 +1,6 @@
-*Colour game - angular*
+# Colour game - angular
 
-![Colours Game](https://res.cloudinary.com/duo6ruqkc/image/upload/v1547298311/ng_u8ley0.png)
+![Colour Game](https://res.cloudinary.com/duo6ruqkc/image/upload/v1547298311/ng_u8ley0.png)
 
 Technologies:
 
