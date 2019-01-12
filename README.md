@@ -7,4 +7,4 @@ Technologies:
 *   Ngrx
 *   PWA
 
-Link: [Colour game](colour-game.surge.sh)
+Link: [Colour game](https://colour-game.surge.sh)
