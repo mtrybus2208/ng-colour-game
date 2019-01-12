@@ -1,4 +1,4 @@
-# Colour game - angular
+# Colour game - Angular
 
 ![Colour Game](https://res.cloudinary.com/duo6ruqkc/image/upload/v1547298311/ng_u8ley0.png)
 
